@@ -20,6 +20,11 @@ var state: int = 0:
 		state_changed.emit(state)
 		print_debug(get_path(), " state changed to: ", state)
 
+var state_data: StateData:
+	set(value):
+		state_data = value
+		state = state_data.state
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

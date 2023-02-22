@@ -9,6 +9,13 @@ extends Entity
 const player_layer = 1
 const companion_layer = 4
 
+var player_data: PlayerData:
+	set(value):
+		player_data = value
+		if player_data:
+			global_position = player_data.position
+			active = player_data.active
+
 func _ready():
 	super._ready()
 	SwapPlayers.player_swapped.connect(on_player_swapped)

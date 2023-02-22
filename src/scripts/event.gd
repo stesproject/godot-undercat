@@ -1,13 +1,13 @@
 extends Node2D
 class_name Event
 
-@export var actions: Array[Resource] = []
+@export var actions: Array[Action] = []
 
 @onready var state_manager: StateManager = get_parent()
 
 var index = 0
 var ca = null # current action
-var entity = null
+var node_ref = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,8 +24,8 @@ func on_state_changed(value):
 
 func run_action():
 	if ca.enabled:
-		entity = get_node(ca.entity) if ca.entity else null
-		await wait_for()
+		node_ref = get_node(ca.node_ref) if ca.node_ref else null
+		await await_signal()
 		match ca.action:
 			"set_swap_players":
 				action_set_swap_players()
@@ -40,7 +40,7 @@ func run_action():
 func action_default():
 	var value = load(ca.value) if ca.value.contains("res://") else ca.value
 	var node = get_node_or_null(ca.value)
-	entity[ca.action] = node if node else value
+	node_ref[ca.action] = node if node else value
 
 
 func action_set_swap_players():
@@ -52,5 +52,5 @@ func action_await_timer():
 	await get_tree().create_timer(seconds).timeout
 
 
-func wait_for():
-	await entity[ca.wait_for] if entity && ca.wait_for else null
+func await_signal():
+	await node_ref[ca.await_signal] if node_ref && ca.await_signal else null
