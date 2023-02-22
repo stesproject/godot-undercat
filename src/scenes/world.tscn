@@ -1,0 +1,256 @@
+[gd_scene load_steps=28 format=3 uid="uid://drmd33qgy1v0g"]
+
+[ext_resource type="TileSet" uid="uid://dpslqktyk23qh" path="res://assets/tilesets/tilemap.tres" id="1_7fl7e"]
+[ext_resource type="Script" path="res://src/scenes/world.gd" id="1_m4voc"]
+[ext_resource type="PackedScene" uid="uid://bgewocq6d4no8" path="res://src/player/player.tscn" id="1_rf8xp"]
+[ext_resource type="PackedScene" uid="uid://8jt2xkmxs2ja" path="res://src/characters/cat.tscn" id="2_pblqk"]
+[ext_resource type="Script" path="res://src/scripts/action.gd" id="3_xvulh"]
+[ext_resource type="Texture2D" uid="uid://clo7uabeixfkt" path="res://assets/sprites/cat.png" id="6_qybaq"]
+[ext_resource type="Texture2D" uid="uid://dc7ffir85doeq" path="res://assets/sprites/player.png" id="7_fo0ka"]
+[ext_resource type="Script" path="res://src/props/state_manager.gd" id="7_wgupm"]
+[ext_resource type="Script" path="res://src/props/event.gd" id="8_ydn3m"]
+[ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/collectable.tscn" id="9_jqdr6"]
+
+[sub_resource type="Resource" id="Resource_pmk3f"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = ""
+action = "await_timer"
+value = "1"
+wait_for = ""
+
+[sub_resource type="Resource" id="Resource_ptesc"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "%Cat"
+action = "target"
+value = "../../Props/cat-point"
+wait_for = ""
+
+[sub_resource type="Resource" id="Resource_kgofl"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "%Cat"
+action = "next"
+value = ""
+wait_for = "auto_move_finished"
+
+[sub_resource type="Resource" id="Resource_nfa1u"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "%Cat"
+action = "target"
+value = "../../Props/cat-point2"
+wait_for = ""
+
+[sub_resource type="Resource" id="Resource_4mxdq"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "%Cat"
+action = "next"
+value = ""
+wait_for = "auto_move_finished"
+
+[sub_resource type="Resource" id="Resource_rw1un"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "%Cat"
+action = "target"
+value = "../../Props/cat-point3"
+wait_for = ""
+
+[sub_resource type="Resource" id="Resource_exqhv"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "%Cat"
+action = "next"
+value = ""
+wait_for = "auto_move_finished"
+
+[sub_resource type="Resource" id="Resource_mw5hu"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = ""
+action = "set_swap_players"
+value = "true"
+wait_for = ""
+
+[sub_resource type="Resource" id="Resource_k8l5i"]
+script = ExtResource("3_xvulh")
+enabled = false
+entity = ".."
+action = "state"
+value = "0"
+wait_for = ""
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yk1ew"]
+radius = 20.2237
+
+[sub_resource type="Resource" id="Resource_q3srb"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "../../Sprite2D"
+action = "texture"
+value = "res://assets/sprites/sphere.png"
+wait_for = ""
+
+[sub_resource type="Resource" id="Resource_sxnaf"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "../.."
+action = "next"
+value = ""
+wait_for = "body_entered"
+
+[sub_resource type="Resource" id="Resource_2a0gd"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "../../Sprite2D"
+action = "texture"
+value = "res://assets/sprites/gem.png"
+wait_for = ""
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vm0xc"]
+radius = 35.0
+
+[sub_resource type="Resource" id="Resource_hriji"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "../../Sprite2D"
+action = "texture"
+value = "res://assets/sprites/sphere.png"
+wait_for = ""
+
+[sub_resource type="Resource" id="Resource_5n4v3"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "../.."
+action = "next"
+value = ""
+wait_for = "action_triggered"
+
+[sub_resource type="Resource" id="Resource_2f42r"]
+script = ExtResource("3_xvulh")
+enabled = true
+entity = "../../Sprite2D"
+action = "texture"
+value = "res://assets/sprites/gem.png"
+wait_for = ""
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_m4voc")
+
+[node name="StateManager" type="Node2D" parent="."]
+script = ExtResource("7_wgupm")
+
+[node name="Event 0" type="Node2D" parent="StateManager"]
+script = ExtResource("8_ydn3m")
+actions = Array[Resource]([SubResource("Resource_pmk3f"), SubResource("Resource_ptesc"), SubResource("Resource_kgofl")])
+
+[node name="Event 1" type="Node2D" parent="StateManager"]
+script = ExtResource("8_ydn3m")
+actions = Array[Resource]([SubResource("Resource_nfa1u"), SubResource("Resource_4mxdq")])
+
+[node name="Event 2" type="Node2D" parent="StateManager"]
+script = ExtResource("8_ydn3m")
+actions = Array[Resource]([SubResource("Resource_rw1un"), SubResource("Resource_exqhv"), SubResource("Resource_mw5hu"), SubResource("Resource_k8l5i")])
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(40, 12)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_7fl7e")
+cell_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(131072, 65536, 1, 131073, 65536, 1, 65537, 65536, 1, 196609, 65536, 1, 196610, 65536, 1, 131074, 65536, 1, 65538, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 196612, 65536, 1, 131076, 65536, 1, 65540, 65536, 1, 65539, 65536, 1, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 1, 262150, 65536, 1, 196614, 65536, 1, 65541, 65536, 1, 65542, 65536, 1, 131078, 65536, 1, 327685, 65536, 1, 327686, 65536, 1, 393222, 65536, 1, 327687, 65536, 1, 262151, 65536, 1, 262152, 65536, 1, 327688, 65536, 1, 393223, 65536, 1, 393224, 65536, 1, 196615, 65536, 1, 131079, 65536, 1, 131080, 65536, 1, 131081, 65536, 1, 196617, 65536, 1, 196616, 65536, 1, 458762, 131072, 2, 393226, 131072, 1, 327690, 131072, 1, 262154, 131072, 1, 196618, 131072, 1, 131082, 131072, 1, 65546, 131072, 1, 10, 131072, 1, -65526, 131072, 0, 458761, 65536, 2, 393225, 65536, 1, 327689, 65536, 1, 262153, 65536, 1, 65545, 65536, 1, 9, 65536, 1, -65527, 65536, 0, 458760, 65536, 2, 65544, 65536, 1, 8, 65536, 1, -65528, 65536, 0, 458759, 65536, 2, 65543, 65536, 1, 7, 65536, 1, -65529, 65536, 0, 458758, 65536, 2, 6, 65536, 1, -65530, 65536, 0, 458757, 65536, 2, 393221, 65536, 1, 5, 65536, 1, -65531, 65536, 0, 458756, 65536, 2, 393220, 65536, 1, 327684, 65536, 1, 262148, 65536, 1, 4, 65536, 1, -65532, 65536, 0, 458755, 65536, 2, 393219, 65536, 1, 327683, 65536, 1, 262147, 65536, 1, 3, 65536, 1, -65533, 65536, 0, 458754, 65536, 2, 393218, 65536, 1, 327682, 65536, 1, 262146, 65536, 1, 2, 65536, 1, -65534, 65536, 0, 458753, 65536, 2, 393217, 65536, 1, 327681, 65536, 1, 262145, 65536, 1, 1, 65536, 1, -65535, 65536, 0, 458752, 65536, 2, 393216, 65536, 1, 327680, 65536, 1, 262144, 65536, 1, 196608, 65536, 1, 65536, 65536, 1, 0, 65536, 1, -65536, 65536, 0, 524287, 65536, 2, 458751, 65536, 1, 393215, 65536, 1, 327679, 65536, 1, 262143, 65536, 1, 196607, 65536, 1, 131071, 65536, 1, 65535, 65536, 1, -1, 65536, 0, 524286, 0, 2, 458750, 0, 1, 393214, 0, 1, 327678, 0, 1, 262142, 0, 1, 196606, 0, 1, 131070, 0, 1, 65534, 0, 1, -2, 0, 0)
+
+[node name="Characters" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Characters" instance=ExtResource("1_rf8xp")]
+
+[node name="Cat" parent="Characters" instance=ExtResource("2_pblqk")]
+unique_name_in_owner = true
+collision_mask = 1
+
+[node name="Props" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="cat-point" type="Sprite2D" parent="Props"]
+y_sort_enabled = true
+position = Vector2(59, 61)
+texture = ExtResource("6_qybaq")
+hframes = 3
+vframes = 4
+frame = 1
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 128)
+
+[node name="cat-point2" type="Sprite2D" parent="Props"]
+y_sort_enabled = true
+position = Vector2(158, -2)
+texture = ExtResource("6_qybaq")
+hframes = 3
+vframes = 4
+frame = 1
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 128)
+
+[node name="cat-point3" type="Sprite2D" parent="Props"]
+y_sort_enabled = true
+position = Vector2(61, -15)
+texture = ExtResource("6_qybaq")
+hframes = 3
+vframes = 4
+frame = 1
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 128)
+
+[node name="Obstacle" type="StaticBody2D" parent="Props"]
+position = Vector2(145, 83)
+
+[node name="Sprite" type="Sprite2D" parent="Props/Obstacle"]
+y_sort_enabled = true
+texture = ExtResource("7_fo0ka")
+hframes = 3
+vframes = 4
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Obstacle"]
+shape = SubResource("CircleShape2D_yk1ew")
+
+[node name="Coin" parent="Props" instance=ExtResource("9_jqdr6")]
+position = Vector2(-31, 34)
+
+[node name="StateManager" type="Node2D" parent="Props/Coin"]
+script = ExtResource("7_wgupm")
+
+[node name="State 0" type="Node2D" parent="Props/Coin/StateManager"]
+script = ExtResource("8_ydn3m")
+actions = Array[Resource]([SubResource("Resource_q3srb"), SubResource("Resource_sxnaf")])
+
+[node name="State 1" type="Node2D" parent="Props/Coin/StateManager"]
+script = ExtResource("8_ydn3m")
+actions = Array[Resource]([SubResource("Resource_2a0gd")])
+
+[node name="Switch" parent="Props" instance=ExtResource("9_jqdr6")]
+position = Vector2(53, 131)
+action_name = "interact"
+
+[node name="CollisionShape2D" parent="Props/Switch" index="1"]
+shape = SubResource("CircleShape2D_vm0xc")
+
+[node name="StateManager" type="Node2D" parent="Props/Switch"]
+script = ExtResource("7_wgupm")
+
+[node name="State 0" type="Node2D" parent="Props/Switch/StateManager"]
+script = ExtResource("8_ydn3m")
+actions = Array[Resource]([SubResource("Resource_hriji"), SubResource("Resource_5n4v3")])
+
+[node name="State 1" type="Node2D" parent="Props/Switch/StateManager"]
+script = ExtResource("8_ydn3m")
+actions = Array[Resource]([SubResource("Resource_2f42r")])
+
+[editable path="Props/Switch"]
