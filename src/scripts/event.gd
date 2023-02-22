@@ -4,8 +4,8 @@ class_name Event
 @export var actions: Array[Action] = []
 
 @onready var state_manager: StateManager = get_parent()
+@onready var index = get_index()
 
-var index = 0
 var ca = null # current action
 var node_ref = null
 

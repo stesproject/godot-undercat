@@ -1,12 +1,14 @@
 # Takes care of loading or creating a new save game and provides appropriate
 # resources to the user interface and the player.
-extends Node2D
+extends Node
 
 # We always keep a reference to the SaveGame resource here to prevent it from unloading.
 var _save_data: SaveGame
 
 @onready var players = get_tree().get_nodes_in_group("player")
 @onready var states = get_tree().get_nodes_in_group("state")
+
+#signal game_loaded
 
 
 func _ready() -> void:
@@ -40,7 +42,9 @@ func _create_or_load_file() -> void:
 func _load_game() -> void:
 	var location = _save_data.location
 	_load_players_data()
-	_load_states_data() # <- it gives problems
+	await get_tree().create_timer(0.1).timeout
+	_load_states_data()
+#	game_loaded.emit()
 
 
 func _load_players_data():

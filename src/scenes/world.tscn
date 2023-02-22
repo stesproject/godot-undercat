@@ -1,7 +1,6 @@
-[gd_scene load_steps=28 format=3 uid="uid://bubacfirmm3o5"]
+[gd_scene load_steps=27 format=3 uid="uid://bubacfirmm3o5"]
 
 [ext_resource type="TileSet" uid="uid://dpslqktyk23qh" path="res://assets/tilesets/tilemap.tres" id="1_7fl7e"]
-[ext_resource type="Script" path="res://src/scenes/data_manager.gd" id="1_gm8de"]
 [ext_resource type="PackedScene" uid="uid://bgewocq6d4no8" path="res://src/player/player.tscn" id="1_rf8xp"]
 [ext_resource type="PackedScene" uid="uid://8jt2xkmxs2ja" path="res://src/characters/cat.tscn" id="2_pblqk"]
 [ext_resource type="Script" path="res://src/scripts/state_manager.gd" id="2_x581t"]
@@ -83,9 +82,6 @@ action = "state"
 value = "0"
 await_signal = ""
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yk1ew"]
-radius = 20.2237
-
 [sub_resource type="Resource" id="Resource_q3srb"]
 script = ExtResource("3_xvulh")
 enabled = true
@@ -137,12 +133,13 @@ action = "texture"
 value = "res://assets/sprites/gem.png"
 await_signal = ""
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_yk1ew"]
+radius = 20.2237
+
 [node name="World" type="Node2D"]
-script = ExtResource("1_gm8de")
 
 [node name="StateManager" type="Node2D" parent="." groups=["state"]]
 script = ExtResource("2_x581t")
-initial_state = -1
 
 [node name="Event 0" type="Node2D" parent="StateManager"]
 script = ExtResource("3_ckgf6")
@@ -178,6 +175,38 @@ collision_mask = 1
 
 [node name="Props" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="Coin" parent="Props" instance=ExtResource("9_jqdr6")]
+position = Vector2(-31, 34)
+
+[node name="StateManager" type="Node2D" parent="Props/Coin" groups=["state"]]
+script = ExtResource("2_x581t")
+
+[node name="State 0" type="Node2D" parent="Props/Coin/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_q3srb"), SubResource("Resource_6ti6r")])
+
+[node name="State 1" type="Node2D" parent="Props/Coin/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2a0gd")])
+
+[node name="Switch" parent="Props" instance=ExtResource("9_jqdr6")]
+position = Vector2(53, 131)
+action_name = "interact"
+
+[node name="CollisionShape2D" parent="Props/Switch" index="1"]
+shape = SubResource("CircleShape2D_vm0xc")
+
+[node name="StateManager" type="Node2D" parent="Props/Switch" groups=["state"]]
+script = ExtResource("2_x581t")
+
+[node name="State 0" type="Node2D" parent="Props/Switch/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_hriji"), SubResource("Resource_5n4v3")])
+
+[node name="State 1" type="Node2D" parent="Props/Switch/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2f42r")])
 
 [node name="cat-point" type="Sprite2D" parent="Props"]
 y_sort_enabled = true
@@ -221,37 +250,5 @@ frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Obstacle"]
 shape = SubResource("CircleShape2D_yk1ew")
-
-[node name="Coin" parent="Props" instance=ExtResource("9_jqdr6")]
-position = Vector2(-31, 34)
-
-[node name="StateManager" type="Node2D" parent="Props/Coin" groups=["state"]]
-script = ExtResource("2_x581t")
-
-[node name="State 0" type="Node2D" parent="Props/Coin/StateManager"]
-script = ExtResource("3_ckgf6")
-actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_q3srb"), SubResource("Resource_6ti6r")])
-
-[node name="State 1" type="Node2D" parent="Props/Coin/StateManager"]
-script = ExtResource("3_ckgf6")
-actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2a0gd")])
-
-[node name="Switch" parent="Props" instance=ExtResource("9_jqdr6")]
-position = Vector2(53, 131)
-action_name = "interact"
-
-[node name="CollisionShape2D" parent="Props/Switch" index="1"]
-shape = SubResource("CircleShape2D_vm0xc")
-
-[node name="StateManager" type="Node2D" parent="Props/Switch" groups=["state"]]
-script = ExtResource("2_x581t")
-
-[node name="State 0" type="Node2D" parent="Props/Switch/StateManager"]
-script = ExtResource("3_ckgf6")
-actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_hriji"), SubResource("Resource_5n4v3")])
-
-[node name="State 1" type="Node2D" parent="Props/Switch/StateManager"]
-script = ExtResource("3_ckgf6")
-actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2f42r")])
 
 [editable path="Props/Switch"]

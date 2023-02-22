@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SwapPlayers="*res://src/scripts/swap_players.gd"
+SwapPlayers="*res://src/scripts/SwapPlayers.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+DataManager="res://src/scripts/DataManager.gd"
 
 [display]
 
