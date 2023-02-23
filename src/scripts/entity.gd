@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var target: Node2D = null:
 	set(value):
 		target = value
-		save_current_state()
+		_save_current_state()
 		state = State.AUTO
 		print_debug(name, " set target: ", target.name)
 @export var target_distance = 5.0
@@ -31,15 +31,15 @@ func _ready():
 
 
 func _physics_process(delta):
-	check_state(delta)
+	_check_state(delta)
 
 
-func check_state(delta):
+func _check_state(delta):
 	match (state):
 		State.MOVE:
 			move_state(delta)
 		State.AUTO:
-			auto_state(delta)
+			_auto_state(delta)
 		State.IDLE:
 			pass
 
@@ -47,11 +47,11 @@ func check_state(delta):
 func move_state(delta):
 	pass
 	
-func auto_state(delta):
+func _auto_state(delta):
 	if target:
 		var target_position = target.global_position
 		if global_position.distance_to(target_position) > target_distance:
-			move_towards_point(target_position, delta)
+			_move_towards_point(target_position, delta)
 		elif (velocity != Vector2.ZERO):
 			animationTree.set("parameters/idle/blend_position", direction)
 			velocity = Vector2.ZERO
@@ -62,7 +62,7 @@ func auto_state(delta):
 			pass
 
 
-func move_towards_point(target_position, delta):
+func _move_towards_point(target_position, delta):
 	direction = global_position.direction_to(target_position)
 	animationTree.set("parameters/walk/blend_position", direction)
 	velocity = velocity.move_toward(direction * max_speed, acceleration * delta)
@@ -71,7 +71,7 @@ func move_towards_point(target_position, delta):
 	move_and_slide()
 
 
-func save_current_state():
+func _save_current_state():
 	saved_state = state
 	
 	
@@ -80,3 +80,9 @@ func update_animation():
 		animationState.travel("walk")
 	else:
 		animationState.travel("idle")
+
+
+func set_direction(dir):
+	direction = dir
+	animationTree.set("parameters/idle/blend_position", direction)
+	

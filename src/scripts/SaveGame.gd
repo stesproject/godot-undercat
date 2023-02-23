@@ -13,7 +13,7 @@ const SAVE_GAME_BASE_PATH := "user://save"
 # Use this to detect old player saves and update their data.
 @export var version := 1
 
-@export var players: Array[Resource] = [PlayerData.new(), PlayerData.new()]
+@export var players: Dictionary = {}
 @export var states: Dictionary = {}
 @export var location := ""
 

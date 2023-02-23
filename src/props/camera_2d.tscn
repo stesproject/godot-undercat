@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctxil3n6x60ok"]
+
+[ext_resource type="Script" path="res://src/props/camera_2d.gd" id="1_37e83"]
+
+[node name="Camera2D" type="Camera2D"]
+position = Vector2(40, 12)
+position_smoothing_speed = 10.0
+script = ExtResource("1_37e83")

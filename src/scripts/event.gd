@@ -32,7 +32,11 @@ func run_action():
 			"await_timer":
 				await action_await_timer()
 			"next":
-				state_manager.state += 1
+				state_manager.state += int(ca.value) if ca.value else 1
+			"save":
+				DataManager.save_game()
+			"load":
+				DataManager.create_or_load_file()
 			_:
 				action_default()
 

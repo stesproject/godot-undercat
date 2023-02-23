@@ -8,31 +8,34 @@ var _save_data: SaveGame
 @onready var players = get_tree().get_nodes_in_group("player")
 @onready var states = get_tree().get_nodes_in_group("state")
 
-#signal game_loaded
+signal game_loaded
 
 
 func _ready() -> void:
 	# And the start of the game or when pressing the load button, we call this
 	# function. It loads the save data if it exists, otherwise, it creates a 
 	# new save file.
-	_create_or_load_file()
+	if !OS.is_debug_build(): 
+		set_process_unhandled_input(false)
+	create_or_load_file()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("save"):
 		print_debug("saving...")
-		_save_game()
+		save_game()
 	if event.is_action_pressed("load"):
 		print_debug("loading...")
-		_create_or_load_file()
+		create_or_load_file()
 
 
-func _create_or_load_file() -> void:
+func create_or_load_file() -> void:
 	if SaveGame.save_exists():
 		_save_data = SaveGame.load_savegame()
 	else:
 		_save_data = SaveGame.new()
-		_save_game()
+		await get_tree().create_timer(0.1).timeout
+		save_game()
 
 	# After creating or loading a save resource, we need to dispatch its data
 	# to the various nodes that need it.
@@ -41,25 +44,25 @@ func _create_or_load_file() -> void:
 
 func _load_game() -> void:
 	var location = _save_data.location
-	_load_players_data()
 	await get_tree().create_timer(0.1).timeout
+	_load_players_data()
 	_load_states_data()
-#	game_loaded.emit()
+	game_loaded.emit()
 
 
 func _load_players_data():
-	for i in players.size():
-		players[i].player_data = _save_data.players[i]
+	for player in players:
+		var id = player.PLAYER_ID
+		player.player_data = _save_data.players[id]
 
 
 func _load_states_data():
 	for state in states:
 		var path = String(state.get_path())
-		var state_data = _save_data.states[path]
-		state.state_data = state_data
+		state.state_data = _save_data.states[path]
 
 
-func _save_game() -> void:
+func save_game() -> void:
 	_save_data.location = name
 	_save_players_data()
 	_save_states_data()
@@ -67,13 +70,15 @@ func _save_game() -> void:
 
 
 func _save_players_data():
-	for i in players.size():
-		_save_data.players[i] = _get_player_data(players[i])
+	for player in players:
+		var id = player.PLAYER_ID
+		_save_data.players[id] = _get_player_data(player)
 
 
 func _get_player_data(player) -> PlayerData:
 	var player_data: = PlayerData.new()
 	player_data.position = player.global_position
+	player_data.direction = player.direction
 	player_data.active = player.active
 	return player_data
 

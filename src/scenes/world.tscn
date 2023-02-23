@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bubacfirmm3o5"]
+[gd_scene load_steps=29 format=3 uid="uid://bubacfirmm3o5"]
 
 [ext_resource type="TileSet" uid="uid://dpslqktyk23qh" path="res://assets/tilesets/tilemap.tres" id="1_7fl7e"]
 [ext_resource type="PackedScene" uid="uid://bgewocq6d4no8" path="res://src/player/player.tscn" id="1_rf8xp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/scripts/state_manager.gd" id="2_x581t"]
 [ext_resource type="Script" path="res://src/scripts/event.gd" id="3_ckgf6"]
 [ext_resource type="Script" path="res://src/scripts/action.gd" id="3_xvulh"]
+[ext_resource type="PackedScene" uid="uid://ctxil3n6x60ok" path="res://src/props/camera_2d.tscn" id="4_c3bl5"]
 [ext_resource type="Texture2D" uid="uid://clo7uabeixfkt" path="res://assets/sprites/cat.png" id="6_qybaq"]
 [ext_resource type="Texture2D" uid="uid://dc7ffir85doeq" path="res://assets/sprites/player.png" id="7_fo0ka"]
 [ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/collectable.tscn" id="9_jqdr6"]
@@ -133,10 +134,18 @@ action = "texture"
 value = "res://assets/sprites/gem.png"
 await_signal = ""
 
+[sub_resource type="Resource" id="Resource_uf2sc"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "../.."
+action = "next"
+value = "-1"
+await_signal = "action_triggered"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_yk1ew"]
 radius = 20.2237
 
-[node name="World" type="Node2D"]
+[node name="Main" type="Node2D"]
 
 [node name="StateManager" type="Node2D" parent="." groups=["state"]]
 script = ExtResource("2_x581t")
@@ -153,10 +162,7 @@ actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_nfa1u"), SubResou
 script = ExtResource("3_ckgf6")
 actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_rw1un"), SubResource("Resource_exqhv"), SubResource("Resource_mw5hu"), SubResource("Resource_k8l5i")])
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(40, 12)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+[node name="Camera2D" parent="." instance=ExtResource("4_c3bl5")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_7fl7e")
@@ -206,7 +212,7 @@ actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_hriji"), SubResou
 
 [node name="State 1" type="Node2D" parent="Props/Switch/StateManager"]
 script = ExtResource("3_ckgf6")
-actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2f42r")])
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2f42r"), SubResource("Resource_uf2sc")])
 
 [node name="cat-point" type="Sprite2D" parent="Props"]
 y_sort_enabled = true

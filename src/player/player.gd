@@ -14,6 +14,7 @@ var player_data: PlayerData:
 		player_data = value
 		if player_data:
 			global_position = player_data.position
+			set_direction(player_data.direction)
 			active = player_data.active
 
 func _ready():
