@@ -1,15 +1,32 @@
-[gd_scene load_steps=29 format=3 uid="uid://bubacfirmm3o5"]
+[gd_scene load_steps=32 format=3 uid="uid://bubacfirmm3o5"]
 
 [ext_resource type="TileSet" uid="uid://dpslqktyk23qh" path="res://assets/tilesets/tilemap.tres" id="1_7fl7e"]
 [ext_resource type="PackedScene" uid="uid://bgewocq6d4no8" path="res://src/player/player.tscn" id="1_rf8xp"]
 [ext_resource type="PackedScene" uid="uid://8jt2xkmxs2ja" path="res://src/characters/cat.tscn" id="2_pblqk"]
 [ext_resource type="Script" path="res://src/scripts/state_manager.gd" id="2_x581t"]
 [ext_resource type="Script" path="res://src/scripts/event.gd" id="3_ckgf6"]
+[ext_resource type="Resource" uid="uid://dbivbjxyu2d3h" path="res://src/dialogues/start.dialogue" id="3_tr6rc"]
 [ext_resource type="Script" path="res://src/scripts/action.gd" id="3_xvulh"]
 [ext_resource type="PackedScene" uid="uid://ctxil3n6x60ok" path="res://src/props/camera_2d.tscn" id="4_c3bl5"]
 [ext_resource type="Texture2D" uid="uid://clo7uabeixfkt" path="res://assets/sprites/cat.png" id="6_qybaq"]
 [ext_resource type="Texture2D" uid="uid://dc7ffir85doeq" path="res://assets/sprites/player.png" id="7_fo0ka"]
 [ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/collectable.tscn" id="9_jqdr6"]
+
+[sub_resource type="Resource" id="Resource_e8ouu"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = ""
+action = "show_dialogue"
+value = "start_1"
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_v8r3v"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = ""
+action = "await_dialogue"
+value = ""
+await_signal = ""
 
 [sub_resource type="Resource" id="Resource_pmk3f"]
 script = ExtResource("3_xvulh")
@@ -151,8 +168,10 @@ radius = 20.2237
 script = ExtResource("2_x581t")
 
 [node name="Event 0" type="Node2D" parent="StateManager"]
+scale = Vector2(1, 5.92)
 script = ExtResource("3_ckgf6")
-actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_pmk3f"), SubResource("Resource_ptesc"), SubResource("Resource_kgofl")])
+dialogue_resource = ExtResource("3_tr6rc")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_e8ouu"), SubResource("Resource_v8r3v"), SubResource("Resource_pmk3f"), SubResource("Resource_ptesc"), SubResource("Resource_kgofl")])
 
 [node name="Event 1" type="Node2D" parent="StateManager"]
 script = ExtResource("3_ckgf6")
