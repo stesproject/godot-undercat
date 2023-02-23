@@ -105,7 +105,8 @@ load={
 
 [internationalization]
 
-locale/fallback="it"
+locale/translations=PackedStringArray("res://src/dialogues/start.en.translation", "res://src/dialogues/start.it.translation")
+locale/test="it"
 locale/translations_pot_files=PackedStringArray("res://src/dialogues/start.dialogue")
 
 [layer_names]
