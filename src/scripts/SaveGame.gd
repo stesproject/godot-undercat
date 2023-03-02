@@ -16,6 +16,7 @@ const SAVE_GAME_BASE_PATH := "user://save"
 @export var players: Dictionary = {}
 @export var states: Dictionary = {}
 @export var location := ""
+@export var swap_players := false
 
 
 func write_savegame() -> void:

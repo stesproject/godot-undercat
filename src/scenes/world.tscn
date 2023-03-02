@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bubacfirmm3o5"]
+[gd_scene load_steps=36 format=3 uid="uid://bkeqg3wvy50dv"]
 
 [ext_resource type="TileSet" uid="uid://dpslqktyk23qh" path="res://assets/tilesets/tilemap.tres" id="1_7fl7e"]
 [ext_resource type="PackedScene" uid="uid://bgewocq6d4no8" path="res://src/player/player.tscn" id="1_rf8xp"]
@@ -124,6 +124,38 @@ action = "texture"
 value = "res://assets/sprites/gem.png"
 await_signal = ""
 
+[sub_resource type="Resource" id="Resource_87534"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "../../Sprite2D"
+action = "texture"
+value = "res://assets/sprites/sphere.png"
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_u2alu"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "../.."
+action = "next"
+value = ""
+await_signal = "body_entered"
+
+[sub_resource type="Resource" id="Resource_vcd7o"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "../../Sprite2D"
+action = "texture"
+value = "res://assets/sprites/gem.png"
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_84oep"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "../.."
+action = "next"
+value = "-1"
+await_signal = "body_entered"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_vm0xc"]
 radius = 35.0
 
@@ -187,7 +219,22 @@ actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_rw1un"), SubResou
 tile_set = ExtResource("1_7fl7e")
 cell_quadrant_size = 32
 format = 2
+layer_0/name = "ground"
 layer_0/tile_data = PackedInt32Array(131072, 65536, 1, 131073, 65536, 1, 65537, 65536, 1, 196609, 65536, 1, 196610, 65536, 1, 131074, 65536, 1, 65538, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 196612, 65536, 1, 131076, 65536, 1, 65540, 65536, 1, 65539, 65536, 1, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 1, 262150, 65536, 1, 196614, 65536, 1, 65541, 65536, 1, 65542, 65536, 1, 131078, 65536, 1, 327685, 65536, 1, 327686, 65536, 1, 393222, 65536, 1, 327687, 65536, 1, 262151, 65536, 1, 262152, 65536, 1, 327688, 65536, 1, 393223, 65536, 1, 393224, 65536, 1, 196615, 65536, 1, 131079, 65536, 1, 131080, 65536, 1, 131081, 65536, 1, 196617, 65536, 1, 196616, 65536, 1, 458762, 131072, 2, 393226, 131072, 1, 327690, 131072, 1, 262154, 131072, 1, 196618, 131072, 1, 131082, 131072, 1, 65546, 131072, 1, 10, 131072, 1, -65526, 131072, 0, 458761, 65536, 2, 393225, 65536, 1, 327689, 65536, 1, 262153, 65536, 1, 65545, 65536, 1, 9, 65536, 1, -65527, 65536, 0, 458760, 65536, 2, 65544, 65536, 1, 8, 65536, 1, -65528, 65536, 0, 458759, 65536, 2, 65543, 65536, 1, 7, 65536, 1, -65529, 65536, 0, 458758, 65536, 2, 6, 65536, 1, -65530, 65536, 0, 458757, 65536, 2, 393221, 65536, 1, 5, 65536, 1, -65531, 65536, 0, 458756, 65536, 2, 393220, 65536, 1, 327684, 65536, 1, 262148, 65536, 1, 4, 65536, 1, -65532, 65536, 0, 458755, 65536, 2, 393219, 65536, 1, 327683, 65536, 1, 262147, 65536, 1, 3, 65536, 1, -65533, 65536, 0, 458754, 65536, 2, 393218, 65536, 1, 327682, 65536, 1, 262146, 65536, 1, 2, 65536, 1, -65534, 65536, 0, 458753, 65536, 2, 393217, 65536, 1, 327681, 65536, 1, 262145, 65536, 1, 1, 65536, 1, -65535, 65536, 0, 458752, 65536, 2, 393216, 65536, 1, 327680, 65536, 1, 262144, 65536, 1, 196608, 65536, 1, 65536, 65536, 1, 0, 65536, 1, -65536, 65536, 0, 524287, 65536, 2, 458751, 65536, 1, 393215, 65536, 1, 327679, 65536, 1, 262143, 65536, 1, 196607, 65536, 1, 131071, 65536, 1, 65535, 65536, 1, -1, 65536, 0, 524286, 0, 2, 458750, 0, 1, 393214, 0, 1, 327678, 0, 1, 262142, 0, 1, 196606, 0, 1, 131070, 0, 1, 65534, 0, 1, -2, 0, 0)
+layer_1/name = "wall"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(-131062, 65540, 2, -196598, 65540, 0, -131063, 65540, 2, -196599, 65540, 0, -131064, 65540, 2, -196600, 65540, 0, -131065, 65540, 2, -196601, 65540, 0, -131066, 65540, 2, -196602, 65540, 0, -131067, 65540, 2, -196603, 65540, 0, -131068, 65540, 2, -196604, 65540, 0, -131069, 65540, 2, -196605, 65540, 0, -131070, 65540, 2, -196606, 65540, 0, -131071, 65540, 2, -196607, 65540, 0, -131072, 65540, 2, -196608, 65540, 0, -65537, 65540, 2, -131073, 65540, 0, -65538, 65540, 2, -131074, 65540, 0, -131061, 131076, 2, -196597, 131076, 0, -65539, 4, 2, -131075, 4, 0)
+layer_2/name = "top"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array(-262134, 65538, 2, -327670, 65538, 0, -262135, 65538, 2, -327671, 65538, 0, -262136, 65538, 2, -327672, 65538, 0, -262137, 65538, 2, -327673, 65538, 0, -262138, 65538, 2, -327674, 65538, 0, -262139, 65538, 2, -327675, 65538, 0, -262140, 65538, 2, -327676, 65538, 0, -262141, 65538, 2, -327677, 65538, 0, -262142, 65538, 2, -327678, 65538, 0, -262143, 65538, 2, -327679, 65538, 0, -262144, 65538, 2, -327680, 65538, 0, -196609, 65538, 2, -262145, 65538, 0, -196610, 65538, 2, -262146, 65538, 0, 196605, 131074, 2, 131069, 131074, 1, 65533, 131074, 1, -3, 131074, 1, -65539, 131074, 1, -131075, 131074, 1, -196611, 327682, 1, -262147, 65538, 0, 196604, 2, 2, 131068, 2, 1, 65532, 2, 1, -4, 2, 1, -65540, 2, 1, -131076, 2, 1, -196612, 2, 1, -262148, 2, 0, 131084, 131074, 2, 65548, 131074, 1, 12, 131074, 1, -65524, 131074, 1, -131060, 131074, 1, -196596, 131074, 1, -262132, 131074, 1, -327668, 131074, 0, 131083, 2, 2, 65547, 2, 1, 11, 2, 1, -65525, 2, 1, -131061, 2, 1, -196597, 2, 1, -262133, 393218, 1, -327669, 65538, 0)
 
 [node name="Characters" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -196,7 +243,7 @@ y_sort_enabled = true
 
 [node name="Cat" parent="Characters" instance=ExtResource("2_pblqk")]
 unique_name_in_owner = true
-collision_mask = 1
+player_id = 1
 
 [node name="Props" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -214,6 +261,20 @@ actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_q3srb"), SubResou
 [node name="State 1" type="Node2D" parent="Props/Coin/StateManager"]
 script = ExtResource("3_ckgf6")
 actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2a0gd")])
+
+[node name="Trigger" parent="Props" instance=ExtResource("9_jqdr6")]
+position = Vector2(37, 39)
+
+[node name="StateManager" type="Node2D" parent="Props/Trigger" groups=["state"]]
+script = ExtResource("2_x581t")
+
+[node name="State 0" type="Node2D" parent="Props/Trigger/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_87534"), SubResource("Resource_u2alu")])
+
+[node name="State 1" type="Node2D" parent="Props/Trigger/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_vcd7o"), SubResource("Resource_84oep")])
 
 [node name="Switch" parent="Props" instance=ExtResource("9_jqdr6")]
 position = Vector2(53, 131)
@@ -265,6 +326,7 @@ region_rect = Rect2(0, 0, 96, 128)
 
 [node name="Obstacle" type="StaticBody2D" parent="Props"]
 position = Vector2(145, 83)
+collision_layer = 2
 
 [node name="Sprite" type="Sprite2D" parent="Props/Obstacle"]
 y_sort_enabled = true

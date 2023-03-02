@@ -2,10 +2,10 @@ extends Node
 
 @onready var players = get_tree().get_nodes_in_group("player")
 
-var id = 0
-var can_swap = false
+var active_player_id = -1
+var can_swap := false
 
-signal player_swapped(id)
+signal player_swapped(player_id)
 
 func _unhandled_input(event):
 	if can_swap && event.is_action_pressed("swap_players"):
@@ -13,9 +13,18 @@ func _unhandled_input(event):
 			
 
 func swap_players():
-	if id < players.size() - 1:
-		id += 1
+	if active_player_id == -1:
+		set_active_player_id()
+	if active_player_id < players.size() - 1:
+		active_player_id += 1
 	else:
-		id = 0
+		active_player_id = 0
 
-	player_swapped.emit(id)
+	player_swapped.emit(active_player_id)
+
+
+func set_active_player_id():
+	for player in players:
+		if player.active:
+			active_player_id = player.player_id
+			break

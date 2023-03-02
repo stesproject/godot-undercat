@@ -225,11 +225,9 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_ehnj6"]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_mask = 3
+collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_qjgi1")
-HP = null
-TARGET_DISTANCE = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -12.5)

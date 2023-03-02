@@ -58,7 +58,7 @@ func _action_default():
 
 
 func _action_set_swap_players():
-	SwapPlayers.can_swap = ca.value
+	SwapPlayers.can_swap = ca.value.to_lower() == "true"
 
 
 func _action_await_timer():

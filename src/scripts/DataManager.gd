@@ -26,6 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		save_game()
 	if event.is_action_pressed("load"):
 		print_debug("loading...")
+#		get_tree().reload_current_scene()
 		create_or_load_file()
 
 
@@ -43,7 +44,8 @@ func create_or_load_file() -> void:
 
 
 func _load_game() -> void:
-	var location = _save_data.location
+	var location = _save_data.location #TODO: to something with the location
+	SwapPlayers.can_swap = _save_data.swap_players
 	await get_tree().create_timer(0.1).timeout
 	_load_players_data()
 	_load_states_data()
@@ -52,18 +54,23 @@ func _load_game() -> void:
 
 func _load_players_data():
 	for player in players:
-		var id = player.PLAYER_ID
+		var id = player.player_id
+		if id not in _save_data.players:
+			_save_data.players[id] = _get_player_data(player)			
 		player.player_data = _save_data.players[id]
 
 
 func _load_states_data():
 	for state in states:
 		var path = String(state.get_path())
+		if path not in _save_data.states:
+			_save_data.states[path] = _get_state_data(state)
 		state.state_data = _save_data.states[path]
 
 
 func save_game() -> void:
 	_save_data.location = name
+	_save_data.swap_players = SwapPlayers.can_swap
 	_save_players_data()
 	_save_states_data()
 	_save_data.write_savegame()
@@ -71,7 +78,7 @@ func save_game() -> void:
 
 func _save_players_data():
 	for player in players:
-		var id = player.PLAYER_ID
+		var id = player.player_id
 		_save_data.players[id] = _get_player_data(player)
 
 
