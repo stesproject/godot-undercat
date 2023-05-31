@@ -10,8 +10,10 @@ class_name Event
 const Balloon = preload("res://src/dialogues/portraits_balloon/balloon.tscn")
 
 var ca = null # current action
+var action_value
 var node_ref = null
 var dialogue_title = ""
+var tween: Tween = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,18 +33,26 @@ func on_state_changed(value):
 func _run_action():
 	if ca.enabled:
 		node_ref = get_node(ca.node_ref) if ca.node_ref else null
+		action_value = ca.value.value if ca.value else null
 		await _await_signal()
+		if ca.action != "tween" && tween != null && tween.is_running():
+			await tween.finished
+			
 		match ca.action:
 			"set_swap_players":
 				_action_set_swap_players()
 			"await_timer":
 				await _action_await_timer()
 			"next":
-				_state_manager.state += int(ca.value) if ca.value else 1
+				_state_manager.state += int(action_value) if action_value else 1
 			"show_dialogue":
 				_action_show_dialogue()
 			"await_dialogue":
 				await DialogueManager.dialogue_finished
+			"tween":
+				_action_tween()
+			"screenshot":
+				_action_screenshot()
 			"save":
 				DataManager.save_game()
 			"load":
@@ -52,26 +62,53 @@ func _run_action():
 
 
 func _action_default():
-	var value = load(ca.value) if ca.value.contains("res://") else ca.value
-	var node = get_node_or_null(ca.value)
-	node_ref[ca.action] = node if node else value
+	var should_load = typeof(action_value) == TYPE_OBJECT
+	var is_node = typeof(action_value) == TYPE_NODE_PATH
+	var value = action_value
+	if should_load:
+		value = load(value.load_path)
+	elif is_node:
+		value = get_node_or_null(value)
+	node_ref[ca.action] = value
+	print_debug("Action -> node: ", node_ref.name, " | param: ", ca.action, " | value: ", value)
 
 
 func _action_set_swap_players():
-	SwapPlayers.can_swap = ca.value.to_lower() == "true"
+	SwapPlayers.can_swap = action_value.to_lower() == "true"
 
 
 func _action_await_timer():
-	var seconds = float(ca.value)
+	var seconds = float(action_value)
 	await get_tree().create_timer(seconds).timeout
 
 
 func _action_show_dialogue():
 	assert(dialogue_resource != null, "\"dialogue_resource\" property needs to point to a DialogueResource.")
-	dialogue_title = ca.value
+	dialogue_title = action_value
 	var balloon: Node = Balloon.instantiate()
 	add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_title)
+
+
+func _action_screenshot():
+	var image = get_viewport().get_texture().get_image()
+#	image.save_png("screenshot.png")
+	var img_texture = ImageTexture.new()
+	var texture = img_texture.create_from_image(image)
+	node_ref.texture = texture
+
+
+func _action_tween():
+	tween = create_tween() if tween == null else tween
+	tween.set_parallel(true)
+	var tp: TweenValue = ca.value
+	var tween_obj = get_node_or_null(tp.node_ref)
+	if tp && tween_obj:
+		var start_value = tween_obj[tp.property]
+		var end_value = tp.value.value
+		tween.tween_method(
+			func(v): tween_obj[tp.property] = start_value.lerp(end_value, tp.curve.sample_baked(v)),
+			0.0, 1.0, tp.duration)
 
 
 func _await_signal():

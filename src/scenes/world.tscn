@@ -1,5 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://bkeqg3wvy50dv"]
+[gd_scene load_steps=74 format=3 uid="uid://bkeqg3wvy50dv"]
 
+[ext_resource type="Texture2D" uid="uid://ktn6cy7hj8b3" path="res://assets/tilesets/grass.png" id="1_6pigq"]
 [ext_resource type="TileSet" uid="uid://dpslqktyk23qh" path="res://assets/tilesets/tilemap.tres" id="1_7fl7e"]
 [ext_resource type="PackedScene" uid="uid://bgewocq6d4no8" path="res://src/player/player.tscn" id="1_rf8xp"]
 [ext_resource type="PackedScene" uid="uid://8jt2xkmxs2ja" path="res://src/characters/cat.tscn" id="2_pblqk"]
@@ -10,14 +11,25 @@
 [ext_resource type="PackedScene" uid="uid://ctxil3n6x60ok" path="res://src/props/camera_2d.tscn" id="4_c3bl5"]
 [ext_resource type="Texture2D" uid="uid://clo7uabeixfkt" path="res://assets/sprites/cat.png" id="6_qybaq"]
 [ext_resource type="Texture2D" uid="uid://dc7ffir85doeq" path="res://assets/sprites/player.png" id="7_fo0ka"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_node.gd" id="7_nicqp"]
 [ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/collectable.tscn" id="9_jqdr6"]
+[ext_resource type="Texture2D" uid="uid://bxssi0epp7lc0" path="res://assets/sprites/gem.png" id="11_0anbx"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_texture.gd" id="11_ppw0v"]
+[ext_resource type="Texture2D" uid="uid://d068s0j6tiomm" path="res://assets/sprites/sphere.png" id="12_vmpjk"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_string.gd" id="12_xv6g6"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_tween.gd" id="16_getw8"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_vector2.gd" id="18_ictqa"]
+
+[sub_resource type="Resource" id="Resource_1asvs"]
+script = ExtResource("12_xv6g6")
+value = "start_1"
 
 [sub_resource type="Resource" id="Resource_e8ouu"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = ""
 action = "show_dialogue"
-value = "start_1"
+value = SubResource("Resource_1asvs")
 await_signal = ""
 
 [sub_resource type="Resource" id="Resource_v8r3v"]
@@ -25,23 +37,30 @@ script = ExtResource("3_xvulh")
 enabled = true
 node_ref = ""
 action = "await_dialogue"
-value = ""
 await_signal = ""
+
+[sub_resource type="Resource" id="Resource_ig2nv"]
+script = ExtResource("12_xv6g6")
+value = "1"
 
 [sub_resource type="Resource" id="Resource_pmk3f"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = ""
 action = "await_timer"
-value = "1"
+value = SubResource("Resource_ig2nv")
 await_signal = ""
+
+[sub_resource type="Resource" id="Resource_tljs4"]
+script = ExtResource("7_nicqp")
+value = NodePath("../../Props/cat-point")
 
 [sub_resource type="Resource" id="Resource_ptesc"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "%Cat"
 action = "target"
-value = "../../Props/cat-point"
+value = SubResource("Resource_tljs4")
 await_signal = ""
 
 [sub_resource type="Resource" id="Resource_kgofl"]
@@ -49,15 +68,18 @@ script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "%Cat"
 action = "next"
-value = ""
 await_signal = "auto_move_finished"
+
+[sub_resource type="Resource" id="Resource_luami"]
+script = ExtResource("7_nicqp")
+value = NodePath("../../Props/cat-point2")
 
 [sub_resource type="Resource" id="Resource_nfa1u"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "%Cat"
 action = "target"
-value = "../../Props/cat-point2"
+value = SubResource("Resource_luami")
 await_signal = ""
 
 [sub_resource type="Resource" id="Resource_4mxdq"]
@@ -65,15 +87,18 @@ script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "%Cat"
 action = "next"
-value = ""
 await_signal = "auto_move_finished"
+
+[sub_resource type="Resource" id="Resource_qsydi"]
+script = ExtResource("7_nicqp")
+value = NodePath("../../Props/cat-point3")
 
 [sub_resource type="Resource" id="Resource_rw1un"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "%Cat"
 action = "target"
-value = "../../Props/cat-point3"
+value = SubResource("Resource_qsydi")
 await_signal = ""
 
 [sub_resource type="Resource" id="Resource_exqhv"]
@@ -81,31 +106,42 @@ script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "%Cat"
 action = "next"
-value = ""
 await_signal = "auto_move_finished"
+
+[sub_resource type="Resource" id="Resource_wfnae"]
+script = ExtResource("12_xv6g6")
+value = "true"
 
 [sub_resource type="Resource" id="Resource_mw5hu"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = ""
 action = "set_swap_players"
-value = "true"
+value = SubResource("Resource_wfnae")
 await_signal = ""
+
+[sub_resource type="Resource" id="Resource_xi08k"]
+script = ExtResource("12_xv6g6")
+value = "0"
 
 [sub_resource type="Resource" id="Resource_k8l5i"]
 script = ExtResource("3_xvulh")
 enabled = false
 node_ref = ".."
 action = "state"
-value = "0"
+value = SubResource("Resource_xi08k")
 await_signal = ""
+
+[sub_resource type="Resource" id="Resource_rwd3s"]
+script = ExtResource("11_ppw0v")
+value = ExtResource("12_vmpjk")
 
 [sub_resource type="Resource" id="Resource_q3srb"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../../Sprite2D"
 action = "texture"
-value = "res://assets/sprites/sphere.png"
+value = SubResource("Resource_rwd3s")
 await_signal = ""
 
 [sub_resource type="Resource" id="Resource_6ti6r"]
@@ -113,23 +149,30 @@ script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../.."
 action = "next"
-value = ""
 await_signal = "body_entered"
+
+[sub_resource type="Resource" id="Resource_y62sx"]
+script = ExtResource("11_ppw0v")
+value = ExtResource("11_0anbx")
 
 [sub_resource type="Resource" id="Resource_2a0gd"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../../Sprite2D"
 action = "texture"
-value = "res://assets/sprites/gem.png"
+value = SubResource("Resource_y62sx")
 await_signal = ""
+
+[sub_resource type="Resource" id="Resource_feplm"]
+script = ExtResource("11_ppw0v")
+value = ExtResource("12_vmpjk")
 
 [sub_resource type="Resource" id="Resource_87534"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../../Sprite2D"
 action = "texture"
-value = "res://assets/sprites/sphere.png"
+value = SubResource("Resource_feplm")
 await_signal = ""
 
 [sub_resource type="Resource" id="Resource_u2alu"]
@@ -137,34 +180,45 @@ script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../.."
 action = "next"
-value = ""
 await_signal = "body_entered"
+
+[sub_resource type="Resource" id="Resource_1hjr7"]
+script = ExtResource("11_ppw0v")
+value = ExtResource("11_0anbx")
 
 [sub_resource type="Resource" id="Resource_vcd7o"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../../Sprite2D"
 action = "texture"
-value = "res://assets/sprites/gem.png"
+value = SubResource("Resource_1hjr7")
 await_signal = ""
+
+[sub_resource type="Resource" id="Resource_d2dpn"]
+script = ExtResource("12_xv6g6")
+value = "-1"
 
 [sub_resource type="Resource" id="Resource_84oep"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../.."
 action = "next"
-value = "-1"
+value = SubResource("Resource_d2dpn")
 await_signal = "body_entered"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vm0xc"]
 radius = 35.0
+
+[sub_resource type="Resource" id="Resource_n14t7"]
+script = ExtResource("11_ppw0v")
+value = ExtResource("12_vmpjk")
 
 [sub_resource type="Resource" id="Resource_hriji"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../../Sprite2D"
 action = "texture"
-value = "res://assets/sprites/sphere.png"
+value = SubResource("Resource_n14t7")
 await_signal = ""
 
 [sub_resource type="Resource" id="Resource_5n4v3"]
@@ -172,29 +226,141 @@ script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../.."
 action = "next"
-value = ""
 await_signal = "action_triggered"
+
+[sub_resource type="Resource" id="Resource_qekp3"]
+script = ExtResource("11_ppw0v")
+value = ExtResource("11_0anbx")
 
 [sub_resource type="Resource" id="Resource_2f42r"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../../Sprite2D"
 action = "texture"
-value = "res://assets/sprites/gem.png"
+value = SubResource("Resource_qekp3")
 await_signal = ""
+
+[sub_resource type="Resource" id="Resource_sn6l2"]
+script = ExtResource("12_xv6g6")
+value = "-1"
 
 [sub_resource type="Resource" id="Resource_uf2sc"]
 script = ExtResource("3_xvulh")
 enabled = true
 node_ref = "../.."
 action = "next"
-value = "-1"
+value = SubResource("Resource_sn6l2")
 await_signal = "action_triggered"
+
+[sub_resource type="Resource" id="Resource_1nqt4"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "../.."
+action = "next"
+await_signal = "action_triggered"
+
+[sub_resource type="Curve" id="Curve_akdc6"]
+_data = [Vector2(0, 0), 0.0, 2.57179, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_7c07w"]
+script = ExtResource("18_ictqa")
+value = Vector2(0.01, 0.01)
+
+[sub_resource type="Resource" id="Resource_wmryu"]
+script = ExtResource("16_getw8")
+node_ref = "%Camera2D"
+property = "zoom"
+value = SubResource("Resource_7c07w")
+duration = 2.0
+curve = SubResource("Curve_akdc6")
+
+[sub_resource type="Resource" id="Resource_0qn7o"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = ".."
+action = "tween"
+value = SubResource("Resource_wmryu")
+await_signal = ""
+
+[sub_resource type="Curve" id="Curve_54abv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.501706, 0.636364), 1.2684, 0.729763, 1, 1, Vector2(1, 1), 3.49283e-07, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_ir3al"]
+script = ExtResource("18_ictqa")
+value = Vector2(0, -2000)
+
+[sub_resource type="Resource" id="Resource_agt6n"]
+script = ExtResource("16_getw8")
+node_ref = "%Camera2D"
+property = "offset"
+value = SubResource("Resource_ir3al")
+duration = 5.0
+curve = SubResource("Curve_54abv")
+
+[sub_resource type="Resource" id="Resource_n3010"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = ".."
+action = "tween"
+value = SubResource("Resource_agt6n")
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_c2a80"]
+script = ExtResource("3_xvulh")
+enabled = false
+node_ref = "%MapTexture"
+action = "screenshot"
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_kkyj1"]
+script = ExtResource("12_xv6g6")
+value = "5"
+
+[sub_resource type="Resource" id="Resource_yy42g"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = ""
+action = "await_timer"
+value = SubResource("Resource_kkyj1")
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_yq5pc"]
+script = ExtResource("18_ictqa")
+value = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_cg3to"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "%Camera2D"
+action = "zoom"
+value = SubResource("Resource_yq5pc")
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_kag6a"]
+script = ExtResource("3_xvulh")
+enabled = true
+node_ref = "../.."
+action = "next"
+await_signal = ""
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yk1ew"]
 radius = 20.2237
 
 [node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+z_as_relative = false
+offset_left = -292.0
+offset_top = -191.0
+offset_right = 576.0
+offset_bottom = 327.0
+texture = ExtResource("1_6pigq")
+stretch_mode = 1
 
 [node name="StateManager" type="Node2D" parent="." groups=["state"]]
 script = ExtResource("2_x581t")
@@ -214,27 +380,39 @@ script = ExtResource("3_ckgf6")
 actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_rw1un"), SubResource("Resource_exqhv"), SubResource("Resource_mw5hu"), SubResource("Resource_k8l5i")])
 
 [node name="Camera2D" parent="." instance=ExtResource("4_c3bl5")]
+unique_name_in_owner = true
 
 [node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
 tile_set = ExtResource("1_7fl7e")
 cell_quadrant_size = 32
 format = 2
 layer_0/name = "ground"
-layer_0/tile_data = PackedInt32Array(131072, 65536, 1, 131073, 65536, 1, 65537, 65536, 1, 196609, 65536, 1, 196610, 65536, 1, 131074, 65536, 1, 65538, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 196612, 65536, 1, 131076, 65536, 1, 65540, 65536, 1, 65539, 65536, 1, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 1, 262150, 65536, 1, 196614, 65536, 1, 65541, 65536, 1, 65542, 65536, 1, 131078, 65536, 1, 327685, 65536, 1, 327686, 65536, 1, 393222, 65536, 1, 327687, 65536, 1, 262151, 65536, 1, 262152, 65536, 1, 327688, 65536, 1, 393223, 65536, 1, 393224, 65536, 1, 196615, 65536, 1, 131079, 65536, 1, 131080, 65536, 1, 131081, 65536, 1, 196617, 65536, 1, 196616, 65536, 1, 458762, 131072, 2, 393226, 131072, 1, 327690, 131072, 1, 262154, 131072, 1, 196618, 131072, 1, 131082, 131072, 1, 65546, 131072, 1, 10, 131072, 1, -65526, 131072, 0, 458761, 65536, 2, 393225, 65536, 1, 327689, 65536, 1, 262153, 65536, 1, 65545, 65536, 1, 9, 65536, 1, -65527, 65536, 0, 458760, 65536, 2, 65544, 65536, 1, 8, 65536, 1, -65528, 65536, 0, 458759, 65536, 2, 65543, 65536, 1, 7, 65536, 1, -65529, 65536, 0, 458758, 65536, 2, 6, 65536, 1, -65530, 65536, 0, 458757, 65536, 2, 393221, 65536, 1, 5, 65536, 1, -65531, 65536, 0, 458756, 65536, 2, 393220, 65536, 1, 327684, 65536, 1, 262148, 65536, 1, 4, 65536, 1, -65532, 65536, 0, 458755, 65536, 2, 393219, 65536, 1, 327683, 65536, 1, 262147, 65536, 1, 3, 65536, 1, -65533, 65536, 0, 458754, 65536, 2, 393218, 65536, 1, 327682, 65536, 1, 262146, 65536, 1, 2, 65536, 1, -65534, 65536, 0, 458753, 65536, 2, 393217, 65536, 1, 327681, 65536, 1, 262145, 65536, 1, 1, 65536, 1, -65535, 65536, 0, 458752, 65536, 2, 393216, 65536, 1, 327680, 65536, 1, 262144, 65536, 1, 196608, 65536, 1, 65536, 65536, 1, 0, 65536, 1, -65536, 65536, 0, 524287, 65536, 2, 458751, 65536, 1, 393215, 65536, 1, 327679, 65536, 1, 262143, 65536, 1, 196607, 65536, 1, 131071, 65536, 1, 65535, 65536, 1, -1, 65536, 0, 524286, 0, 2, 458750, 0, 1, 393214, 0, 1, 327678, 0, 1, 262142, 0, 1, 196606, 0, 1, 131070, 0, 1, 65534, 0, 1, -2, 0, 0)
-layer_1/name = "wall"
+layer_0/enabled = false
+layer_0/y_sort_enabled = true
+layer_0/z_index = -1
+layer_0/tile_data = PackedInt32Array(131072, 65536, 1, 131073, 65536, 1, 65537, 65536, 1, 196609, 65536, 1, 196610, 65536, 1, 131074, 65536, 1, 65538, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 196612, 65536, 1, 131076, 65536, 1, 65540, 65536, 1, 65539, 65536, 1, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 1, 262150, 65536, 1, 196614, 65536, 1, 65541, 65536, 1, 65542, 65536, 1, 131078, 65536, 1, 327685, 65536, 1, 327686, 65536, 1, 393222, 65536, 1, 327687, 65536, 1, 262151, 65536, 1, 262152, 65536, 1, 327688, 65536, 1, 393223, 65536, 1, 393224, 65536, 1, 196615, 65536, 1, 131079, 65536, 1, 131080, 65536, 1, 131081, 65536, 1, 196617, 65536, 1, 196616, 65536, 1, 458762, 131072, 2, 393226, 131072, 1, 327690, 327680, 1, 262154, 65536, 1, 196618, 65536, 1, 131082, 65536, 1, 65546, 65536, 1, 10, 65536, 1, -65526, 65536, 1, 458761, 65536, 2, 393225, 65536, 1, 327689, 65536, 1, 262153, 65536, 1, 65545, 65536, 1, 9, 65536, 1, -65527, 65536, 1, 458760, 65536, 2, 65544, 65536, 1, 8, 65536, 1, -65528, 393216, 2, 458759, 65536, 2, 65543, 65536, 1, 7, 65536, 1, -65529, 65536, 0, 458758, 65536, 2, 6, 65536, 1, -65530, 65536, 0, 458757, 65536, 2, 393221, 65536, 1, 5, 65536, 1, -65531, 65536, 0, 458756, 65536, 2, 393220, 65536, 1, 327684, 65536, 1, 262148, 65536, 1, 4, 65536, 1, -65532, 65536, 0, 458755, 65536, 2, 393219, 65536, 1, 327683, 65536, 1, 262147, 65536, 1, 3, 65536, 1, -65533, 65536, 0, 458754, 65536, 2, 393218, 65536, 1, 327682, 65536, 1, 262146, 65536, 1, 2, 65536, 1, -65534, 65536, 0, 458753, 65536, 2, 393217, 65536, 1, 327681, 65536, 1, 262145, 65536, 1, 1, 65536, 1, -65535, 65536, 0, 458752, 65536, 2, 393216, 65536, 1, 327680, 65536, 1, 262144, 65536, 1, 196608, 65536, 1, 65536, 65536, 1, 0, 65536, 1, -65536, 65536, 0, 524287, 65536, 2, 458751, 65536, 1, 393215, 65536, 1, 327679, 65536, 1, 262143, 65536, 1, 196607, 65536, 1, 131071, 65536, 1, 65535, 65536, 1, -1, 65536, 0, 524286, 0, 2, 458750, 393216, 1, 393214, 65536, 1, 327678, 65536, 1, 262142, 65536, 1, 196606, 65536, 1, 131070, 65536, 1, 65534, 65536, 1, -2, 65536, 0, 458749, 0, 2, 393213, 393216, 1, 393212, 0, 2, 327676, 393216, 1, 327675, 0, 2, 327677, 65536, 1, 262141, 65536, 1, 262140, 65536, 1, 196604, 65536, 1, 196605, 65536, 1, 196603, 0, 1, 131068, 65536, 1, 131067, 393216, 1, 131066, 0, 2, 65529, 0, 2, 65530, 393216, 1, 262139, 0, 1, 196619, 65536, 1, 131084, 65536, 1, 196620, 327680, 1, 327691, 131072, 2, 262156, 131072, 2, 196621, 65536, 2, 131086, 327680, 1, 131087, 131072, 2, 196622, 131072, 2, 262155, 327680, 1, 65550, 65536, 1, 65549, 65536, 1, 131083, 65536, 1, 131085, 65536, 1, 131069, 65536, 1, 65532, 65536, 1, 65531, 65536, 1, -6, 65536, 0, -7, 262144, 2, -65543, 458752, 1, -65544, 0, 2, -131080, 589824, 0, -131081, 0, 2, -196617, 0, 1, -262153, 0, 0, -262152, 131072, 0, -196616, 131072, 1, -131079, 131072, 0, -5, 65536, 0, -4, 65536, 0, -3, 65536, 0, 65533, 65536, 1, -65525, 65536, 1, 11, 65536, 1, 65547, 65536, 1, 65548, 65536, 1, 12, 65536, 1, -65524, 65536, 1, -65523, 65536, 1, 14, 65536, 1, 13, 65536, 1, -65522, 65536, 1, -65521, 65536, 1, 15, 327680, 1, 65551, 131072, 1, -65520, 327680, 1, 16, 131072, 2, -65519, 131072, 2, -131054, 131072, 3, -131055, 327680, 0, -131056, 65536, 0, -131057, 65536, 0, -131058, 65536, 0, -131059, 65536, 0, -131060, 65536, 0, -131061, 65536, 0, -131062, 65536, 0, -131064, 0, 0, -131063, 65536, 0)
+layer_1/name = "props"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(-131062, 65540, 2, -196598, 65540, 0, -131063, 65540, 2, -196599, 65540, 0, -131064, 65540, 2, -196600, 65540, 0, -131065, 65540, 2, -196601, 65540, 0, -131066, 65540, 2, -196602, 65540, 0, -131067, 65540, 2, -196603, 65540, 0, -131068, 65540, 2, -196604, 65540, 0, -131069, 65540, 2, -196605, 65540, 0, -131070, 65540, 2, -196606, 65540, 0, -131071, 65540, 2, -196607, 65540, 0, -131072, 65540, 2, -196608, 65540, 0, -65537, 65540, 2, -131073, 65540, 0, -65538, 65540, 2, -131074, 65540, 0, -131061, 131076, 2, -196597, 131076, 0, -65539, 4, 2, -131075, 4, 0)
-layer_2/name = "top"
+layer_1/tile_data = PackedInt32Array(589820, 3, 0, 524285, 3, 0, 458750, 3, 0, 458753, 3, 0, 393223, 65539, 0, 196607, 65539, 0, 131070, 3, 0, 131071, 65539, 0, 0, 65539, 0, 3, 65539, 0, 5, 65539, 0, 131079, 3, 0, 524300, 65539, 0, 524302, 65539, 0, 327692, 65539, 0, 393225, 65539, 0, 524286, 3, 0, 458748, 3, 0, 458747, 65539, 0, 327670, 3, 0, 131063, 65539, 0, 65527, 65539, 0, -8, 3, 0, 65529, 3, 0, 524279, 65539, 0, 524280, 65539, 0, 524288, 65539, 0, 524291, 65539, 0, 262148, 65539, 0, 8, 65539, 0, -65528, 3, 0, -65527, 65539, 0, -65526, 3, 0, 131084, 3, 0, 131086, 3, 0, 196623, 65539, 0, 131090, 3, 0, 65554, 65539, 0, 18, 3, 0, -327664, 65539, 0, -393200, 65539, 0, -393201, 3, 0, -393202, 65539, 0, -327669, 65539, 0, -327670, 3, 0, -262140, 3, 0, -262141, 65539, 0, -262143, 65539, 0, -131076, 65539, 0, -65541, 65539, 0, -6, 3, 0, 65530, 65539, 0, 589814, 3, 0)
+layer_2/name = "wall"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
-layer_2/y_sort_enabled = false
+layer_2/y_sort_enabled = true
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(-262134, 65538, 2, -327670, 65538, 0, -262135, 65538, 2, -327671, 65538, 0, -262136, 65538, 2, -327672, 65538, 0, -262137, 65538, 2, -327673, 65538, 0, -262138, 65538, 2, -327674, 65538, 0, -262139, 65538, 2, -327675, 65538, 0, -262140, 65538, 2, -327676, 65538, 0, -262141, 65538, 2, -327677, 65538, 0, -262142, 65538, 2, -327678, 65538, 0, -262143, 65538, 2, -327679, 65538, 0, -262144, 65538, 2, -327680, 65538, 0, -196609, 65538, 2, -262145, 65538, 0, -196610, 65538, 2, -262146, 65538, 0, 196605, 131074, 2, 131069, 131074, 1, 65533, 131074, 1, -3, 131074, 1, -65539, 131074, 1, -131075, 131074, 1, -196611, 327682, 1, -262147, 65538, 0, 196604, 2, 2, 131068, 2, 1, 65532, 2, 1, -4, 2, 1, -65540, 2, 1, -131076, 2, 1, -196612, 2, 1, -262148, 2, 0, 131084, 131074, 2, 65548, 131074, 1, 12, 131074, 1, -65524, 131074, 1, -131060, 131074, 1, -196596, 131074, 1, -262132, 131074, 1, -327668, 131074, 0, 131083, 2, 2, 65547, 2, 1, 11, 2, 1, -65525, 2, 1, -131061, 2, 1, -196597, 2, 1, -262133, 393218, 1, -327669, 65538, 0)
+layer_2/tile_data = PackedInt32Array(-131062, 65540, 2, -196598, 65540, 0, -131063, 65540, 2, -196599, 65540, 0, -131064, 65540, 2, -196600, 65540, 0, -131065, 65540, 2, -196601, 65540, 0, -131066, 65540, 2, -196602, 65540, 0, -131067, 65540, 2, -196603, 65540, 0, -131068, 65540, 2, -196604, 65540, 0, -131069, 65540, 2, -196605, 65540, 0, -131070, 65540, 2, -196606, 65540, 0, -131071, 65540, 2, -196607, 65540, 0, -131072, 65540, 2, -196608, 65540, 0, -65537, 65540, 2, -131073, 65540, 0, -65538, 65540, 2, -131074, 65540, 0, -131061, 131076, 2, -196597, 131076, 0, -65539, 4, 2, -131075, 4, 0, -65523, 65540, 0, 13, 65540, 1, 65549, 65540, 2, 65550, 65540, 2, 14, 65540, 1, -65522, 65540, 0, 15, 131076, 1, -65521, 131076, 0, 65551, 131076, 2, 131083, 4, 0, 196619, 4, 1, 262155, 4, 2, 262156, 131076, 2, 196620, 131076, 1, 131084, 458756, 2, 196604, 262148, 2, 262140, 4, 1, 327676, 4, 2, 327677, 131076, 2, 262141, 131076, 1, 196605, 131076, 0, -6, 262148, 2, 65530, 4, 1, 131066, 4, 2, 131067, 65540, 2, 65531, 65540, 1, -5, 65540, 0, -196615, 589828, 0, -131079, 4, 1, -65543, 4, 2, -196614, 131076, 0, -131078, 131076, 1, -65542, 458756, 1, -327688, 4, 0, -262152, 4, 1, -196616, 4, 2, -262151, 131076, 1, -327687, 131076, 0, 65548, 262148, 1, 12, 4, 1, -65524, 4, 0, 131068, 458756, 1, 65532, 131076, 1, -4, 131076, 0)
+layer_3/name = "top"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = true
+layer_3/y_sort_origin = 0
+layer_3/z_index = 1
+layer_3/tile_data = PackedInt32Array(-262134, 65538, 2, -327670, 65538, 1, -262135, 65538, 2, -327671, 65538, 1, -262136, 65538, 2, -327672, 65538, 1, -262137, 65538, 2, -327673, 65538, 1, -262138, 65538, 2, -327674, 65538, 1, -262139, 65538, 2, -327675, 65538, 1, -262140, 65538, 2, -327676, 65538, 1, -262141, 65538, 2, -327677, 65538, 1, -262142, 65538, 2, -327678, 65538, 1, -262143, 65538, 2, -327679, 65538, 1, -262144, 65538, 2, -327680, 65538, 1, -196609, 65538, 2, -262145, 65538, 1, -196610, 65538, 2, -262146, 65538, 1, 196605, 131074, 2, 131069, 131074, 1, 65533, 131074, 1, -3, 131074, 1, -65539, 131074, 1, -131075, 131074, 1, -196611, 327682, 1, -262147, 65538, 1, 196604, 2, 2, 131068, 2, 1, 65532, 2, 1, -4, 393218, 1, -65540, 65538, 1, -131076, 65538, 1, -196612, 65538, 1, -262148, 65538, 1, 131084, 131074, 2, 65548, 131074, 1, 12, 131074, 1, -65524, 327682, 1, -131060, 65538, 1, -196596, 65538, 1, -262132, 65538, 1, -327668, 327682, 2, 131083, 2, 2, 65547, 2, 1, 11, 2, 1, -65525, 2, 1, -131061, 2, 1, -196597, 2, 1, -262133, 393218, 1, -327669, 65538, 1, -5, 65538, 2, -6, 2, 2, -65542, 2, 1, -131078, 2, 1, -196614, 393218, 1, -196613, 65538, 1, -131077, 65538, 1, -65541, 65538, 1, -262149, 65538, 1, -262150, 65538, 1, -327686, 65538, 1, -327685, 65538, 1, -262151, 2, 1, -196615, 2, 2, -327687, 393218, 1, -327688, 2, 2, -393224, 2, 0, -393223, 65538, 0, -393222, 393218, 2, -458758, 2, 0, -458757, 131074, 0, -393221, 327682, 2, -393220, 65538, 0, -458755, 2, 0, -458754, 65538, 0, -458753, 131074, 0, -393217, 327682, 2, -458752, 65538, 0, -393218, 65538, 1, -327682, 65538, 1, -327683, 65538, 1, -327681, 65538, 1, -393219, 393218, 2, -327684, 65538, 1, -393216, 65538, 1, -393215, 65538, 1, -458750, 65538, 0, -458749, 65538, 0, -458748, 65538, 0, -458747, 65538, 0, -458746, 393218, 2, -393211, 65538, 1, -393212, 65538, 1, -393213, 65538, 1, -393214, 65538, 1, -458751, 65538, 0, -524282, 2, 0, -524281, 65538, 0, -524280, 65538, 0, -524279, 131074, 0, -458743, 327682, 2, -458744, 65538, 1, -458745, 65538, 1, -393210, 65538, 1, -393209, 65538, 1, -393208, 65538, 1, -393207, 65538, 1, -393206, 65538, 1, -393205, 65538, 1, -393204, 131074, 1, -458742, 65538, 0, -458741, 65538, 0, -458740, 131074, 0, -327667, 131074, 0, -262131, 327682, 2, -262130, 65538, 0, -262129, 131074, 0, -196593, 131074, 1, -131058, 65538, 1, -65522, 65538, 2, -65521, 131074, 2, -65523, 65538, 2, -131059, 65538, 1, -196595, 65538, 1, -196594, 65538, 1, -131057, 131074, 1)
 
 [node name="Characters" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -243,6 +421,7 @@ y_sort_enabled = true
 
 [node name="Cat" parent="Characters" instance=ExtResource("2_pblqk")]
 unique_name_in_owner = true
+position = Vector2(-23, 155)
 player_id = 1
 
 [node name="Props" type="Node2D" parent="."]
@@ -294,6 +473,27 @@ actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_hriji"), SubResou
 script = ExtResource("3_ckgf6")
 actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_2f42r"), SubResource("Resource_uf2sc")])
 
+[node name="CameraZoom" parent="Props" instance=ExtResource("9_jqdr6")]
+position = Vector2(-22, 169)
+action_name = "interact"
+
+[node name="Sprite2D" parent="Props/CameraZoom" index="0"]
+texture = ExtResource("11_0anbx")
+
+[node name="CollisionShape2D" parent="Props/CameraZoom" index="1"]
+shape = SubResource("CircleShape2D_vm0xc")
+
+[node name="StateManager" type="Node2D" parent="Props/CameraZoom" groups=["state"]]
+script = ExtResource("2_x581t")
+
+[node name="State 0" type="Node2D" parent="Props/CameraZoom/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_1nqt4")])
+
+[node name="State 1" type="Node2D" parent="Props/CameraZoom/StateManager"]
+script = ExtResource("3_ckgf6")
+actions = Array[ExtResource("3_xvulh")]([SubResource("Resource_0qn7o"), SubResource("Resource_n3010"), SubResource("Resource_c2a80"), SubResource("Resource_yy42g"), SubResource("Resource_cg3to"), SubResource("Resource_kag6a")])
+
 [node name="cat-point" type="Sprite2D" parent="Props"]
 y_sort_enabled = true
 position = Vector2(59, 61)
@@ -338,4 +538,21 @@ frame = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Obstacle"]
 shape = SubResource("CircleShape2D_yk1ew")
 
+[node name="MapCanvas" type="CanvasLayer" parent="."]
+
+[node name="MapTexture" type="TextureRect" parent="MapCanvas"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [editable path="Props/Switch"]
+[editable path="Props/CameraZoom"]

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dc7ffir85doeq" path="res://assets/sprites/player.png" id="2_lqkj4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yr5f1"]
-size = Vector2(10, 16)
+size = Vector2(16, 16)
 
 [sub_resource type="Animation" id="Animation_un2jq"]
 length = 0.001
@@ -229,10 +229,6 @@ collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_qjgi1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -12.5)
-shape = SubResource("RectangleShape2D_yr5f1")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(-1, -24)
@@ -240,6 +236,10 @@ texture = ExtResource("2_lqkj4")
 hframes = 3
 vframes = 4
 frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_yr5f1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

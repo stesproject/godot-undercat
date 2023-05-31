@@ -6,16 +6,15 @@
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_r7hwr"]
 
 [node name="Cat" instance=ExtResource("1_aswfg")]
-PLAYER_ID = 1
 
-[node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, -12)
-
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -16)
 texture = ExtResource("2_6ddxa")
 region_enabled = true
 region_rect = Rect2(0, 0, 96, 128)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -12)
 
 [node name="AnimationTree" parent="." index="3"]
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_r7hwr")

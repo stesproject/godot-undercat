@@ -106,8 +106,8 @@ load={
 [internationalization]
 
 locale/translations=PackedStringArray("res://src/dialogues/start.en.translation", "res://src/dialogues/start.it.translation")
-locale/test="it"
 locale/translations_pot_files=PackedStringArray("res://src/dialogues/start.dialogue")
+locale/test="it"
 
 [layer_names]
 
@@ -123,5 +123,5 @@ locale/translations_pot_files=PackedStringArray("res://src/dialogues/start.dialo
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
