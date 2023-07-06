@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://cdnw2ycv601a6"]
+
+[ext_resource type="Texture2D" uid="uid://trw0dubpucfu" path="res://assets/sprites/shadow.png" id="1_ee5dv"]
+[ext_resource type="Script" path="res://src/scripts/character_entity.gd" id="1_sbuty"]
+[ext_resource type="Texture2D" uid="uid://cwj15xj1h14s4" path="res://assets/sprites/chara-enemies.png" id="2_3g6aj"]
+[ext_resource type="AnimationLibrary" uid="uid://b4aenpnfadxaa" path="res://char-anim.res" id="3_v72wp"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://d2cq7thvjhevy" path="res://src/characters/char-anim-tree.tres" id="5_g1jur"]
+[ext_resource type="Script" path="res://src/scripts/states/enemy_follow.gd" id="6_671wj"]
+[ext_resource type="Script" path="res://src/scripts/StateMachine.gd" id="6_krxgm"]
+[ext_resource type="Script" path="res://src/scripts/states/enemy_wander.gd" id="7_k70vf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_51mib"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rgckw"]
+radius = 28.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2pevs"]
+size = Vector2(17, 8)
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("animationTree")]
+collision_layer = 4
+collision_mask = 21
+motion_mode = 1
+script = ExtResource("1_sbuty")
+animationTree = NodePath("AnimationTree")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_51mib")
+debug_color = Color(0.564706, 0.552941, 0.247059, 0.419608)
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_rgckw")
+debug_color = Color(0.886275, 0.294118, 0.384314, 0.419608)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.294118)
+position = Vector2(0, 2)
+texture = ExtResource("1_ee5dv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -19)
+texture = ExtResource("2_3g6aj")
+hframes = 12
+vframes = 8
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -5)
+shape = SubResource("RectangleShape2D_2pevs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"char-anim": ExtResource("3_v72wp")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = ExtResource("5_g1jur")
+anim_player = NodePath("../AnimationPlayer")
+parameters/idle/blend_position = Vector2(-0.180769, 0.266376)
+parameters/walk/blend_position = Vector2(-0.00183487, 0.991266)
+
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+position = Vector2(0, -19)
+script = ExtResource("6_krxgm")
+initial_state = NodePath("wander")
+
+[node name="wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("entity")]
+script = ExtResource("7_k70vf")
+speed = 40.0
+wander_time_range = Vector2(1, 3)
+animation_state = "walk"
+entity = NodePath("../..")
+
+[node name="follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("entity")]
+script = ExtResource("6_671wj")
+speed = 60.0
+animation_state = "walk"
+entity = NodePath("../..")
+
+[connection signal="body_entered" from="DetectionArea" to="StateMachine/wander" method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="StateMachine/follow" method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="StateMachine/follow" method="_on_attack_area_body_entered"]

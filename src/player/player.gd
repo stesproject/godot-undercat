@@ -46,7 +46,7 @@ func move_state(delta):
 
 func check_enable_player(id):
 	active = player_id == id
-	remoteTransform.remote_path = mainCamera.get_path() if mainCamera else ""
+#	remoteTransform.remote_path = mainCamera.get_path() if mainCamera else ""
 	collision_layer = player_layer if active else companion_layer
 
 func on_player_swapped(id):

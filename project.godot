@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Undercat"
-run/main_scene="res://src/scenes/world.tscn"
-config/features=PackedStringArray("4.0", "GL Compatibility")
+config/name="Light-Hearted Story"
+run/main_scene="res://src/scenes/gardens.tscn"
+config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,16 +23,16 @@ DataManager="*res://src/scripts/DataManager.gd"
 
 [display]
 
-window/size/viewport_width=576
-window/size/viewport_height=324
-window/size/window_width_override=1280
-window/size/window_height_override=720
+window/size/viewport_width=768
+window/size/viewport_height=432
+window/size/window_width_override=1536
+window/size/window_height_override=864
 window/stretch/mode="canvas_items"
 window/fallback="it"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/tile_bit_tools/plugin.cfg")
 
 [importer_defaults]
 

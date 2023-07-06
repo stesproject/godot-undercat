@@ -17,7 +17,7 @@ func _ready() -> void:
 	# new save file.
 	if !OS.is_debug_build(): 
 		set_process_unhandled_input(false)
-	create_or_load_file()
+#	create_or_load_file()
 
 
 func _unhandled_input(event: InputEvent) -> void:

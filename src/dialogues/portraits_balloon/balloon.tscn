@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/dialogues/portraits_balloon/balloon.gd" id="1_kex82"]
 [ext_resource type="AudioStream" uid="uid://cng7ex3hvatxl" path="res://src/dialogues/portraits_balloon/talk.wav" id="2_ok7fx"]
-[ext_resource type="Theme" uid="uid://dwlmlw3xwboli" path="res://assets/themes/main_theme.tres" id="3_8jt32"]
+[ext_resource type="Theme" uid="uid://dwlmlw3xwboli" path="res://src/themes/main_theme.tres" id="3_8jt32"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="4_m3ccg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5d24i"]

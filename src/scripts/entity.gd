@@ -9,7 +9,7 @@ extends CharacterBody2D
 		target = value
 		_save_current_state()
 		state = State.AUTO
-		print_debug(name, " set target: ", target.name)
+		print(name, " set target: ", target.name)
 @export var target_distance = 5.0
 
 @onready var animationTree = $AnimationTree
