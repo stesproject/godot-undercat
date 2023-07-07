@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://erir473u70qd"]
+[gd_scene load_steps=6 format=3 uid="uid://erir473u70qd"]
 
 [ext_resource type="PackedScene" uid="uid://dp1stpumhugf1" path="res://src/scenes/tile_map.tscn" id="3_170er"]
 [ext_resource type="PackedScene" uid="uid://ctxil3n6x60ok" path="res://src/props/camera_2d.tscn" id="3_533ug"]
 [ext_resource type="PackedScene" uid="uid://do5tuaj3ad87u" path="res://src/characters/player/player-1.tscn" id="4_bo6jo"]
 [ext_resource type="PackedScene" uid="uid://bb7opkv52tbr6" path="res://src/characters/enemies/enemy-1.tscn" id="5_m1wpn"]
+[ext_resource type="Texture2D" uid="uid://b5y333qfvkbdk" path="res://assets/sprites/enemy-ninja.png" id="5_roomn"]
 
 [node name="Main" type="Node2D"]
 
@@ -23,4 +24,19 @@ y_sort_enabled = true
 position = Vector2(127, 228)
 
 [node name="Enemy" parent="Characters" instance=ExtResource("5_m1wpn")]
-position = Vector2(368, 215)
+position = Vector2(592, 200)
+
+[node name="Enemy Ninja" parent="Characters" instance=ExtResource("5_m1wpn")]
+position = Vector2(339, 216)
+
+[node name="Sprite2D" parent="Characters/Enemy Ninja" index="0"]
+texture = ExtResource("5_roomn")
+
+[node name="wander" parent="Characters/Enemy Ninja/StateMachine" index="1"]
+speed = 40.0
+wander_time_range = Vector2(1, 2)
+
+[node name="follow" parent="Characters/Enemy Ninja/StateMachine" index="2"]
+speed = 100.0
+
+[editable path="Characters/Enemy Ninja"]

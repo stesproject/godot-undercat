@@ -36,18 +36,18 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 
-[node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.298039)
-z_index = -1
-position = Vector2(0, 5)
-texture = ExtResource("1_x0xqk")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -17)
 texture = ExtResource("1_3xjx0")
 hframes = 12
 vframes = 8
 frame = 3
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.298039)
+z_index = -1
+position = Vector2(0, 5)
+texture = ExtResource("1_x0xqk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)

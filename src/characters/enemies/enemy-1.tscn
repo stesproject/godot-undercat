@@ -10,12 +10,6 @@
 [ext_resource type="Script" path="res://src/scripts/states/enemy_follow.gd" id="8_kqo80"]
 [ext_resource type="Script" path="res://src/scripts/states/enemy_wander.gd" id="8_wwxjn"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_o2lxx"]
-radius = 120.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8yj8k"]
-radius = 28.0
-
 [sub_resource type="Animation" id="Animation_ti7wn"]
 length = 0.001
 tracks/0/type = "value"
@@ -36,42 +30,48 @@ _data = {
 "RESET": SubResource("Animation_ti7wn")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_o2lxx"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8yj8k"]
+radius = 28.0
+
 [node name="Enemy" node_paths=PackedStringArray("detection_area", "attack_area") instance=ExtResource("1_lr162")]
 collision_layer = 4
-collision_mask = 21
+collision_mask = 17
 script = ExtResource("2_f14b3")
 detection_area = NodePath("DetectionArea")
 attack_area = NodePath("AttackArea")
 
-[node name="DetectionArea" type="Area2D" parent="." index="0"]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
-shape = SubResource("CircleShape2D_o2lxx")
-debug_color = Color(0.564706, 0.552941, 0.247059, 0.419608)
-
-[node name="AttackArea" type="Area2D" parent="." index="1"]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" index="0"]
-shape = SubResource("CircleShape2D_8yj8k")
-debug_color = Color(0.886275, 0.294118, 0.384314, 0.419608)
-
-[node name="Sprite2D" parent="." index="3"]
+[node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_bgpxh")
 hframes = 3
 vframes = 4
 frame = 0
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" parent="." index="3"]
 libraries = {
 "": SubResource("AnimationLibrary_irb2g"),
 "enemy-anim-idle": ExtResource("3_dhq2u"),
 "enemy-anim-walk": ExtResource("4_rtkup")
 }
 
-[node name="AnimationTree" parent="." index="6"]
+[node name="AnimationTree" parent="." index="4"]
 tree_root = ExtResource("3_wudg6")
+
+[node name="DetectionArea" type="Area2D" parent="." index="5"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource("CircleShape2D_o2lxx")
+debug_color = Color(0.564706, 0.552941, 0.247059, 0.419608)
+
+[node name="AttackArea" type="Area2D" parent="." index="6"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("CircleShape2D_8yj8k")
+debug_color = Color(0.886275, 0.294118, 0.384314, 0.419608)
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("wander")
