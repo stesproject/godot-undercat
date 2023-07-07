@@ -2,6 +2,9 @@ extends Node
 class_name StateNode
 
 @export var animation_state: String
+@export var next_state: StateNode
+
+@onready var state_machine: StateMachine = get_parent()
 
 var entity: CharacterEntity
 
@@ -27,3 +30,8 @@ func update(_delta: float):
 
 func physics_update(_delta: float):
 	pass
+
+
+func change_state(state: StateNode, params: Dictionary = {}):
+	if !state: return
+	transitioned.emit(self, state.name, params)

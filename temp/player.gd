@@ -17,7 +17,7 @@ var player_data: PlayerData:
 			set_direction(player_data.direction)
 			active = player_data.active
 			collision_layer = player_layer if active else companion_layer
-			
+
 
 func _ready():
 	super._ready()
@@ -31,7 +31,6 @@ func move_state(delta):
 
 	var input_vector = Input.get_vector("left", "right", "up", "down")
 #	velocity = input_vector * acceleration  if friction == 0 else velocity
-	
 	if (input_vector != Vector2.ZERO):
 		animationTree.set("parameters/idle/blend_position", input_vector)
 		animationTree.set("parameters/walk/blend_position", input_vector)

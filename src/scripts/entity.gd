@@ -1,5 +1,6 @@
-class_name Entity
+# OLD ENTITY SYSTEM | TO DELETE
 extends CharacterBody2D
+class_name Entity
 
 @export var acceleration = 800.0
 @export var friction = 700.0

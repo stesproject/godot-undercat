@@ -1,13 +1,15 @@
-extends Node2D
+extends Node
+class_name StateMachine
 
 @export var initial_state: StateNode
 
+var states: Dictionary = {}
+var previous_state: StateNode
 var current_state: StateNode:
 	set(value):
+		previous_state = current_state
 		current_state = value
 		print(owner.name, " state changed to: ", current_state.name)
-
-var states: Dictionary = {}
 
 
 func _ready():

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://erir473u70qd"]
 
-[ext_resource type="PackedScene" uid="uid://bgk7g3yj75e2h" path="res://src/player/hero.tscn" id="2_v762p"]
-[ext_resource type="PackedScene" uid="uid://dp1stpumhugf1" path="res://src/tile_map.tscn" id="3_170er"]
+[ext_resource type="PackedScene" uid="uid://dp1stpumhugf1" path="res://src/scenes/tile_map.tscn" id="3_170er"]
 [ext_resource type="PackedScene" uid="uid://ctxil3n6x60ok" path="res://src/props/camera_2d.tscn" id="3_533ug"]
-[ext_resource type="PackedScene" uid="uid://cdnw2ycv601a6" path="res://src/characters/enemy.tscn" id="4_lsauy"]
+[ext_resource type="PackedScene" uid="uid://do5tuaj3ad87u" path="res://src/characters/player/player-1.tscn" id="4_bo6jo"]
+[ext_resource type="PackedScene" uid="uid://bb7opkv52tbr6" path="res://src/characters/enemies/enemy-1.tscn" id="5_m1wpn"]
 
 [node name="Main" type="Node2D"]
 
@@ -19,8 +19,8 @@ layer_3/tile_data = PackedInt32Array(393218, 65538, 3, 393217, 65538, 3, 393216,
 [node name="Characters" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Enemy" parent="Characters" instance=ExtResource("4_lsauy")]
-position = Vector2(438, 184)
+[node name="Player" parent="Characters" instance=ExtResource("4_bo6jo")]
+position = Vector2(127, 228)
 
-[node name="Player" parent="Characters" instance=ExtResource("2_v762p")]
-position = Vector2(220, 191)
+[node name="Enemy" parent="Characters" instance=ExtResource("5_m1wpn")]
+position = Vector2(368, 215)

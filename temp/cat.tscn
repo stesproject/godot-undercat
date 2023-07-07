@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://8jt2xkmxs2ja"]
+
+[ext_resource type="Texture2D" uid="uid://clo7uabeixfkt" path="res://assets/sprites/cat.png" id="1_x5en6"]
+
+[node name="Cat"]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -16)
+texture = ExtResource("1_x5en6")
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 128)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -12)

@@ -1,6 +1,6 @@
 # Save and load the game using the text or binary resource format.
-class_name SaveGame
 extends Resource
+class_name SaveGame
 
 # You must use the user:// path prefix when saving the player's data.
 #

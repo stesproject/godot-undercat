@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3baj6rygkb3f"
-path="res://.godot/imported/update.svg-f1628866ed4eb2e13e3b81f75443687e.ctex"
+uid="uid://bc1t3uj3gghl3"
+path="res://.godot/imported/enemy-soldier.png-e43683e539ceb28591b2fd8087b61c36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/dialogue_manager/assets/update.svg"
-dest_files=["res://.godot/imported/update.svg-f1628866ed4eb2e13e3b81f75443687e.ctex"]
+source_file="res://assets/sprites/enemy-soldier.png"
+dest_files=["res://.godot/imported/enemy-soldier.png-e43683e539ceb28591b2fd8087b61c36.ctex"]
 
 [params]
 
@@ -31,7 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
+detect_3d/compress_to=0

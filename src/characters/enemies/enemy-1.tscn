@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://bb7opkv52tbr6"]
+
+[ext_resource type="PackedScene" uid="uid://btooms2f34noj" path="res://src/characters/character_base.tscn" id="1_lr162"]
+[ext_resource type="Texture2D" uid="uid://c2tes8vbd2pxa" path="res://assets/sprites/enemy-1.png" id="2_bgpxh"]
+[ext_resource type="Script" path="res://src/characters/enemies/enemy_entity.gd" id="2_f14b3"]
+[ext_resource type="AnimationLibrary" uid="uid://bm0mr528k5qqv" path="res://src/characters/enemies/enemy-anim-idle.res" id="3_dhq2u"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://4qbg3lp02hiu" path="res://src/characters/enemies/enemy-anim-states.tres" id="3_wudg6"]
+[ext_resource type="AnimationLibrary" uid="uid://d1hqlrerkgqly" path="res://src/characters/enemies/enemy-anim-walk.res" id="4_rtkup"]
+[ext_resource type="Script" path="res://src/characters/enemies/enemy-idle.gd" id="7_pjple"]
+[ext_resource type="Script" path="res://src/scripts/states/enemy_follow.gd" id="8_kqo80"]
+[ext_resource type="Script" path="res://src/scripts/states/enemy_wander.gd" id="8_wwxjn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o2lxx"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8yj8k"]
+radius = 28.0
+
+[sub_resource type="Animation" id="Animation_ti7wn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_irb2g"]
+_data = {
+"RESET": SubResource("Animation_ti7wn")
+}
+
+[node name="Enemy" node_paths=PackedStringArray("detection_area", "attack_area") instance=ExtResource("1_lr162")]
+collision_layer = 4
+collision_mask = 21
+script = ExtResource("2_f14b3")
+detection_area = NodePath("DetectionArea")
+attack_area = NodePath("AttackArea")
+
+[node name="DetectionArea" type="Area2D" parent="." index="0"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource("CircleShape2D_o2lxx")
+debug_color = Color(0.564706, 0.552941, 0.247059, 0.419608)
+
+[node name="AttackArea" type="Area2D" parent="." index="1"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("CircleShape2D_8yj8k")
+debug_color = Color(0.886275, 0.294118, 0.384314, 0.419608)
+
+[node name="Sprite2D" parent="." index="3"]
+texture = ExtResource("2_bgpxh")
+hframes = 3
+vframes = 4
+frame = 0
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_irb2g"),
+"enemy-anim-idle": ExtResource("3_dhq2u"),
+"enemy-anim-walk": ExtResource("4_rtkup")
+}
+
+[node name="AnimationTree" parent="." index="6"]
+tree_root = ExtResource("3_wudg6")
+
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("wander")
+
+[node name="idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_pjple")
+animation_state = "idle"
+next_state = NodePath("../follow")
+
+[node name="wander" type="Node" parent="StateMachine" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("8_wwxjn")
+speed = 30.0
+wander_time_range = Vector2(1, 3)
+animation_state = "walk"
+next_state = NodePath("../follow")
+
+[node name="follow" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("8_kqo80")
+speed = 60.0
+animation_state = "walk"

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://do5tuaj3ad87u"]
+
+[ext_resource type="PackedScene" uid="uid://btooms2f34noj" path="res://src/characters/character_base.tscn" id="1_tv8uk"]
+[ext_resource type="Script" path="res://src/characters/player/player_entity.gd" id="2_2f0s6"]
+[ext_resource type="Script" path="res://src/characters/player/player-move.gd" id="3_acdal"]
+
+[node name="Player" instance=ExtResource("1_tv8uk")]
+collision_layer = 1
+collision_mask = 31
+script = ExtResource("2_2f0s6")
+
+[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("move")
+
+[node name="move" type="Node" parent="StateMachine" index="0"]
+script = ExtResource("3_acdal")
+animation_state = "idle"
+
+[node name="attack" type="Node" parent="StateMachine" index="1"]

@@ -1,9 +1,15 @@
 extends StateNode
-class_name EnemyFollowState
 
 @export var speed: = 50.0
 
 var target: CharacterBody2D
+
+
+func _ready():
+	super._ready()
+	await owner.ready
+	entity.detection_area.connect("body_exited", _on_body_away)
+	entity.attack_area.connect("body_entered", _on_body_nearby)
 
 func enter(params: Dictionary = {}):
 	super.enter()
@@ -17,10 +23,10 @@ func physics_update(delta):
 	entity.velocity = entity.move_direction * speed
 
 
-func _on_detection_area_body_exited(body):
-	transitioned.emit(self, "wander")
+func _on_body_away(body):
+	change_state(state_machine.previous_state)
 
 
-func _on_attack_area_body_entered(body):
+func _on_body_nearby(body):
 	# Transit to attack state
 	print(entity.name, " attack ", body.name)
