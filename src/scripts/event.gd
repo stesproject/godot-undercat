@@ -53,6 +53,8 @@ func _run_action():
 				_action_tween()
 			"screenshot":
 				_action_screenshot()
+			"play_anim":
+				_action_play_animation()
 			"save":
 				DataManager.save_game()
 			"load":
@@ -70,7 +72,7 @@ func _action_default():
 	elif is_node:
 		value = get_node_or_null(value)
 	node_ref[ca.action] = value
-	print_debug("Action -> node: ", node_ref.name, " | param: ", ca.action, " | value: ", value)
+	print("Action -> node: ", node_ref.name, " | param: ", ca.action, " | value: ", value)
 
 
 func _action_set_swap_players():
@@ -98,6 +100,11 @@ func _action_screenshot():
 	node_ref.texture = texture
 
 
+func _action_play_animation():
+	var anim_player: AnimationPlayer = node_ref
+	anim_player.play(action_value)
+
+
 func _action_tween():
 	tween = create_tween() if tween == null else tween
 	tween.set_parallel(true)
@@ -112,8 +119,10 @@ func _action_tween():
 
 
 func _await_signal():
-	await node_ref[ca.await_signal] if node_ref && ca.await_signal else null
+	if node_ref && ca.await_signal:
+		print(node_ref.name, " is awaiting for signal: ", ca.await_signal)
+		await node_ref[ca.await_signal]
 
 
 func _on_dialogue_finished():
-	print_debug("Dialogue ", dialogue_title, " finished")
+	print("Dialogue ", dialogue_title, " finished")

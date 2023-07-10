@@ -12,12 +12,12 @@ signal game_loaded
 
 
 func _ready() -> void:
-	# And the start of the game or when pressing the load button, we call this
+	# At the start of the game or when pressing the load button, we call this
 	# function. It loads the save data if it exists, otherwise, it creates a 
 	# new save file.
 	if !OS.is_debug_build(): 
 		set_process_unhandled_input(false)
-#	create_or_load_file()
+	create_or_load_file()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -85,7 +85,7 @@ func _save_players_data():
 func _get_player_data(player) -> PlayerData:
 	var player_data: = PlayerData.new()
 	player_data.position = player.global_position
-	player_data.direction = player.direction
+	player_data.direction = player.move_direction
 	player_data.active = player.active
 	return player_data
 

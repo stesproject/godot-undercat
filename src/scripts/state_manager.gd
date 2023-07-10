@@ -18,12 +18,16 @@ var previous_state: int = 0
 		previous_state = state
 		state = value
 		state_changed.emit(state)
-		print_debug(parent_name, " state changed to: ", state)
+		print(parent_name, " state changed to: ", state)
 
 var state_data: StateData:
 	set(value):
 		state_data = value
 		state = state_data.state
+
+
+#func _ready():
+#	state = state
 
 
 func update_cycle():

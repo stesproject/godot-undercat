@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cboidd8ago13a"]
+
+[ext_resource type="Script" path="res://src/props/interactable.gd" id="1_pwc1y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rgjf3"]
+radius = 48.0
+
+[node name="Interactable" type="Area2D"]
+collision_layer = 2
+monitorable = false
+script = ExtResource("1_pwc1y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="InteractiveArea" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rgjf3")
+debug_color = Color(0.588235, 0.67451, 0.317647, 0.419608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
