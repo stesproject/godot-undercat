@@ -1,67 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://erir473u70qd"]
+[gd_scene load_steps=7 format=3 uid="uid://erir473u70qd"]
 
 [ext_resource type="PackedScene" uid="uid://dp1stpumhugf1" path="res://src/scenes/tile_map.tscn" id="3_170er"]
 [ext_resource type="PackedScene" uid="uid://ctxil3n6x60ok" path="res://src/props/camera_2d.tscn" id="3_533ug"]
 [ext_resource type="PackedScene" uid="uid://do5tuaj3ad87u" path="res://src/characters/player/player-1.tscn" id="4_bo6jo"]
 [ext_resource type="PackedScene" uid="uid://bb7opkv52tbr6" path="res://src/characters/enemies/enemy-1.tscn" id="5_m1wpn"]
 [ext_resource type="Texture2D" uid="uid://b5y333qfvkbdk" path="res://assets/sprites/enemy-ninja.png" id="5_roomn"]
-[ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/interactable.tscn" id="6_fumnp"]
-[ext_resource type="PackedScene" uid="uid://cdfkranntkq8q" path="res://src/props/chest.tscn" id="7_7ogv7"]
-[ext_resource type="Script" path="res://src/scripts/state_manager.gd" id="8_eooyu"]
-[ext_resource type="Script" path="res://src/scripts/event.gd" id="9_bcvpg"]
-[ext_resource type="Script" path="res://src/scripts/action.gd" id="10_n30dy"]
-[ext_resource type="Script" path="res://src/scripts/action_values/value_string.gd" id="11_ureno"]
-[ext_resource type="Script" path="res://src/scripts/action_values/value_num.gd" id="14_wrxn7"]
-
-[sub_resource type="Resource" id="Resource_sy866"]
-script = ExtResource("14_wrxn7")
-value = 0
-
-[sub_resource type="Resource" id="Resource_ktuav"]
-script = ExtResource("10_n30dy")
-enabled = true
-node_ref = "../../Chest/Sprite2D"
-action = "frame"
-value = SubResource("Resource_sy866")
-await_signal = ""
-
-[sub_resource type="Resource" id="Resource_38um1"]
-script = ExtResource("10_n30dy")
-enabled = true
-node_ref = "../.."
-action = "next"
-await_signal = "action_triggered"
-
-[sub_resource type="Resource" id="Resource_c3r5t"]
-script = ExtResource("11_ureno")
-value = "open"
-
-[sub_resource type="Resource" id="Resource_b5dgg"]
-script = ExtResource("10_n30dy")
-enabled = true
-node_ref = "../../Chest/AnimationPlayer"
-action = "play_anim"
-value = SubResource("Resource_c3r5t")
-await_signal = ""
-
-[sub_resource type="Resource" id="Resource_7sgcd"]
-script = ExtResource("10_n30dy")
-enabled = true
-node_ref = "../../Chest/AnimationPlayer"
-action = "next"
-await_signal = "animation_finished"
-
-[sub_resource type="Resource" id="Resource_q4u5q"]
-script = ExtResource("14_wrxn7")
-value = 4
-
-[sub_resource type="Resource" id="Resource_ujb1x"]
-script = ExtResource("10_n30dy")
-enabled = true
-node_ref = "../../Chest/Sprite2D"
-action = "frame"
-value = SubResource("Resource_q4u5q")
-await_signal = ""
+[ext_resource type="PackedScene" uid="uid://bm1hefum2yeqf" path="res://src/props/chest.tscn" id="13_jsryn"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -97,27 +41,10 @@ speed = 100.0
 [node name="Props" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Chest 1" parent="Props" instance=ExtResource("6_fumnp")]
-position = Vector2(238, 124)
-action_name = "interact"
+[node name="Chest 1" parent="Props" instance=ExtResource("13_jsryn")]
+position = Vector2(339, 269)
 
-[node name="Chest" parent="Props/Chest 1" instance=ExtResource("7_7ogv7")]
-
-[node name="StateManager" type="Node2D" parent="Props/Chest 1" groups=["state"]]
-script = ExtResource("8_eooyu")
-
-[node name="State 0" type="Node2D" parent="Props/Chest 1/StateManager"]
-script = ExtResource("9_bcvpg")
-actions = Array[ExtResource("10_n30dy")]([SubResource("Resource_ktuav"), SubResource("Resource_38um1")])
-
-[node name="State 1" type="Node2D" parent="Props/Chest 1/StateManager"]
-script = ExtResource("9_bcvpg")
-actions = Array[ExtResource("10_n30dy")]([SubResource("Resource_b5dgg"), SubResource("Resource_7sgcd")])
-
-[node name="State 2" type="Node2D" parent="Props/Chest 1/StateManager"]
-script = ExtResource("9_bcvpg")
-actions = Array[ExtResource("10_n30dy")]([SubResource("Resource_ujb1x")])
+[node name="Chest 2" parent="Props" instance=ExtResource("13_jsryn")]
+position = Vector2(240, 152)
 
 [editable path="Characters/Enemy Ninja"]
-[editable path="Props/Chest 1"]
-[editable path="Props/Chest 1/Chest"]

@@ -39,21 +39,21 @@ func _run_action():
 			await tween.finished
 			
 		match ca.action:
-			"set_swap_players":
+			"set-swap-players":
 				_action_set_swap_players()
-			"await_timer":
+			"await-timer":
 				await _action_await_timer()
 			"next":
 				_state_manager.state += int(action_value) if action_value else 1
-			"show_dialogue":
+			"show-dialogue":
 				_action_show_dialogue()
-			"await_dialogue":
+			"await-dialogue":
 				await DialogueManager.dialogue_finished
 			"tween":
 				_action_tween()
 			"screenshot":
 				_action_screenshot()
-			"play_anim":
+			"play-anim":
 				_action_play_animation()
 			"save":
 				DataManager.save_game()

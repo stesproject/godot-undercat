@@ -1,32 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdfkranntkq8q"]
+[gd_scene load_steps=21 format=3 uid="uid://bm1hefum2yeqf"]
 
-[ext_resource type="Texture2D" uid="uid://byka5gxluibku" path="res://assets/sprites/chest-blue.png" id="1_ogcjv"]
+[ext_resource type="Texture2D" uid="uid://byka5gxluibku" path="res://assets/sprites/chest-blue.png" id="1_xpfod"]
+[ext_resource type="Script" path="res://src/scripts/state_manager.gd" id="2_p7153"]
+[ext_resource type="Script" path="res://src/scripts/event.gd" id="3_3tvw6"]
+[ext_resource type="Script" path="res://src/scripts/action.gd" id="4_53c7a"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_num.gd" id="5_hbvs8"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_string.gd" id="6_0hgix"]
+[ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/interactable.tscn" id="7_18pn4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nybbl"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxgdm"]
 size = Vector2(36, 20)
-
-[sub_resource type="Animation" id="Animation_vpbdm"]
-resource_name = "open"
-length = 0.50001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [1, 2, 3, 4]
-}
 
 [sub_resource type="Animation" id="Animation_smy4v"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -36,24 +26,119 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_vpbdm"]
+resource_name = "open"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cfifj"]
 _data = {
 "RESET": SubResource("Animation_smy4v"),
 "open": SubResource("Animation_vpbdm")
 }
 
-[node name="Chest" type="StaticBody2D"]
-y_sort_enabled = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_ylfjd"]
+radius = 24.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ogcjv")
+[sub_resource type="Resource" id="Resource_eid21"]
+script = ExtResource("5_hbvs8")
+value = 0
+
+[sub_resource type="Resource" id="Resource_gga4p"]
+script = ExtResource("4_53c7a")
+enabled = true
+node_ref = "../../Body/Sprite"
+action = "frame"
+value = SubResource("Resource_eid21")
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_oxosp"]
+script = ExtResource("4_53c7a")
+enabled = true
+node_ref = "../../Interactable"
+action = "next"
+await_signal = "action_triggered"
+
+[sub_resource type="Resource" id="Resource_78xdx"]
+script = ExtResource("6_0hgix")
+value = "open"
+
+[sub_resource type="Resource" id="Resource_4fj5a"]
+script = ExtResource("4_53c7a")
+enabled = true
+node_ref = "../../Body/AnimationPlayer"
+action = "play-anim"
+value = SubResource("Resource_78xdx")
+await_signal = ""
+
+[sub_resource type="Resource" id="Resource_cht3o"]
+script = ExtResource("4_53c7a")
+enabled = true
+node_ref = "../../Body/AnimationPlayer"
+action = "next"
+await_signal = "animation_finished"
+
+[sub_resource type="Resource" id="Resource_1pi25"]
+script = ExtResource("5_hbvs8")
+value = 4
+
+[sub_resource type="Resource" id="Resource_6va2g"]
+script = ExtResource("4_53c7a")
+enabled = true
+node_ref = "../../Body/Sprite"
+action = "frame"
+value = SubResource("Resource_1pi25")
+await_signal = ""
+
+[node name="Chest 1" type="Node2D"]
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Sprite" type="Sprite2D" parent="Body"]
+texture = ExtResource("1_xpfod")
 vframes = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
 position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_nybbl")
+shape = SubResource("RectangleShape2D_dxgdm")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 libraries = {
 "": SubResource("AnimationLibrary_cfifj")
 }
+
+[node name="Interactable" parent="." instance=ExtResource("7_18pn4")]
+position = Vector2(0, 17)
+constrain_direction = Vector2i(0, -1)
+
+[node name="TriggerArea" parent="Interactable" index="0"]
+shape = SubResource("CircleShape2D_ylfjd")
+
+[node name="StateManager" type="Node2D" parent="." groups=["state"]]
+script = ExtResource("2_p7153")
+
+[node name="closed" type="Node2D" parent="StateManager"]
+script = ExtResource("3_3tvw6")
+actions = Array[ExtResource("4_53c7a")]([SubResource("Resource_gga4p"), SubResource("Resource_oxosp")])
+
+[node name="opening" type="Node2D" parent="StateManager"]
+script = ExtResource("3_3tvw6")
+actions = Array[ExtResource("4_53c7a")]([SubResource("Resource_4fj5a"), SubResource("Resource_cht3o")])
+
+[node name="opened" type="Node2D" parent="StateManager"]
+script = ExtResource("3_3tvw6")
+actions = Array[ExtResource("4_53c7a")]([SubResource("Resource_6va2g")])
+
+[editable path="Interactable"]
