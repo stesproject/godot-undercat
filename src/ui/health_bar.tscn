@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm5i2oprvlg0d"]
+
+[ext_resource type="Script" path="res://src/ui/health_bar.gd" id="1_h863g"]
+[ext_resource type="Texture2D" uid="uid://cfr2qgasw0der" path="res://assets/ui/heart-empty.png" id="2_rrdiu"]
+[ext_resource type="Texture2D" uid="uid://b3gcs7u44vipe" path="res://assets/ui/heart.png" id="3_ocipm"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 6.0
+offset_bottom = 6.0
+script = ExtResource("1_h863g")
+
+[node name="HudEmpty" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 14.0
+texture = ExtResource("2_rrdiu")
+stretch_mode = 1
+
+[node name="HudFull" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 14.0
+texture = ExtResource("3_ocipm")
+stretch_mode = 1

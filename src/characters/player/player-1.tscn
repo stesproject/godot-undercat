@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://do5tuaj3ad87u"]
+[gd_scene load_steps=5 format=3 uid="uid://do5tuaj3ad87u"]
 
 [ext_resource type="PackedScene" uid="uid://btooms2f34noj" path="res://src/characters/character_base.tscn" id="1_tv8uk"]
 [ext_resource type="Script" path="res://src/characters/player/player_entity.gd" id="2_2f0s6"]
 [ext_resource type="Script" path="res://src/characters/player/player-move.gd" id="3_acdal"]
+[ext_resource type="PackedScene" uid="uid://dm5i2oprvlg0d" path="res://src/ui/health_bar.tscn" id="3_gxfa4"]
 
 [node name="Player" groups=["player"] instance=ExtResource("1_tv8uk")]
 collision_layer = 1
 collision_mask = 31
 script = ExtResource("2_2f0s6")
+health_bar_scn = ExtResource("3_gxfa4")
 
 [node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("move")

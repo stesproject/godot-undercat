@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bm1hefum2yeqf"]
+[gd_scene load_steps=31 format=3 uid="uid://bm1hefum2yeqf"]
 
 [ext_resource type="Texture2D" uid="uid://byka5gxluibku" path="res://assets/sprites/chest-blue.png" id="1_xpfod"]
 [ext_resource type="Script" path="res://src/scripts/state_manager.gd" id="2_p7153"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://src/scripts/action_values/value_num.gd" id="5_hbvs8"]
 [ext_resource type="Script" path="res://src/scripts/action_values/value_string.gd" id="6_0hgix"]
 [ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/interactable.tscn" id="7_18pn4"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_tween.gd" id="8_63lxl"]
+[ext_resource type="Script" path="res://src/scripts/action_values/value_vector2.gd" id="9_1kd2p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxgdm"]
 size = Vector2(36, 20)
@@ -53,7 +55,7 @@ radius = 24.0
 
 [sub_resource type="Resource" id="Resource_eid21"]
 script = ExtResource("5_hbvs8")
-value = 0
+value = 0.0
 
 [sub_resource type="Resource" id="Resource_gga4p"]
 script = ExtResource("4_53c7a")
@@ -82,6 +84,53 @@ action = "play-anim"
 value = SubResource("Resource_78xdx")
 await_signal = ""
 
+[sub_resource type="Curve" id="Curve_fuxfo"]
+_data = [Vector2(0.0869565, 0), 0.0, 0.0, 0, 0, Vector2(0.313044, 1), 0.0, 0.0, 0, 0, Vector2(0.482609, 0.442105), 0.0, 0.0, 0, 0, Vector2(0.691304, 0.715789), 1.24958, 1.24958, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Resource" id="Resource_wlphl"]
+script = ExtResource("9_1kd2p")
+value = Vector2(1.2, 1.1)
+
+[sub_resource type="Resource" id="Resource_0dvvi"]
+script = ExtResource("8_63lxl")
+property = "scale"
+value = SubResource("Resource_wlphl")
+duration = 0.35
+curve = SubResource("Curve_fuxfo")
+
+[sub_resource type="Resource" id="Resource_dl2eh"]
+script = ExtResource("4_53c7a")
+enabled = true
+node_ref = "../../Body"
+action = "tween"
+value = SubResource("Resource_0dvvi")
+await_signal = ""
+
+[sub_resource type="Curve" id="Curve_0brqc"]
+min_value = -1.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.269565, 1), 0.0, 0.0, 0, 0, Vector2(0.517391, -1), 0.0, 0.0, 0, 0, Vector2(0.76087, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Resource" id="Resource_gk0m8"]
+script = ExtResource("5_hbvs8")
+value = 5.0
+
+[sub_resource type="Resource" id="Resource_tkb3h"]
+script = ExtResource("8_63lxl")
+property = "rotation_degrees"
+value = SubResource("Resource_gk0m8")
+duration = 0.15
+curve = SubResource("Curve_0brqc")
+
+[sub_resource type="Resource" id="Resource_4owkm"]
+script = ExtResource("4_53c7a")
+enabled = true
+node_ref = "../../Body"
+action = "tween"
+value = SubResource("Resource_tkb3h")
+await_signal = ""
+
 [sub_resource type="Resource" id="Resource_cht3o"]
 script = ExtResource("4_53c7a")
 enabled = true
@@ -91,7 +140,7 @@ await_signal = "animation_finished"
 
 [sub_resource type="Resource" id="Resource_1pi25"]
 script = ExtResource("5_hbvs8")
-value = 4
+value = 4.0
 
 [sub_resource type="Resource" id="Resource_6va2g"]
 script = ExtResource("4_53c7a")
@@ -135,7 +184,7 @@ actions = Array[ExtResource("4_53c7a")]([SubResource("Resource_gga4p"), SubResou
 
 [node name="opening" type="Node2D" parent="StateManager"]
 script = ExtResource("3_3tvw6")
-actions = Array[ExtResource("4_53c7a")]([SubResource("Resource_4fj5a"), SubResource("Resource_cht3o")])
+actions = Array[ExtResource("4_53c7a")]([SubResource("Resource_4fj5a"), SubResource("Resource_dl2eh"), SubResource("Resource_4owkm"), SubResource("Resource_cht3o")])
 
 [node name="opened" type="Node2D" parent="StateManager"]
 script = ExtResource("3_3tvw6")

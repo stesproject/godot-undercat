@@ -109,12 +109,13 @@ func _action_tween():
 	tween = create_tween() if tween == null else tween
 	tween.set_parallel(true)
 	var tp: TweenValue = ca.value
-	var tween_obj = get_node_or_null(tp.node_ref)
+	var tween_obj = get_node_or_null(ca.node_ref)
 	if tp && tween_obj:
 		var start_value = tween_obj[tp.property]
 		var end_value = tp.value.value
 		tween.tween_method(
-			func(v): tween_obj[tp.property] = start_value.lerp(end_value, tp.curve.sample_baked(v)),
+#			func(v): tween_obj[tp.property] = start_value.lerp(end_value, tp.curve.sample_baked(v)),
+			func(v): tween_obj[tp.property] = lerp(start_value, end_value, tp.curve.sample_baked(v)),
 			0.0, 1.0, tp.duration)
 
 

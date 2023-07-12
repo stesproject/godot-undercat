@@ -22,8 +22,9 @@ layer_3/tile_data = PackedInt32Array(393218, 65538, 3, 393217, 65538, 3, 393216,
 [node name="Characters" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Player" parent="Characters" instance=ExtResource("4_bo6jo")]
+[node name="Player" parent="Characters" node_paths=PackedStringArray("canvas_layer") instance=ExtResource("4_bo6jo")]
 position = Vector2(169, 240)
+canvas_layer = NodePath("../../CanvasLayer")
 
 [node name="Enemy Ninja" parent="Characters" instance=ExtResource("5_m1wpn")]
 position = Vector2(667, 192)
@@ -46,5 +47,7 @@ position = Vector2(339, 269)
 
 [node name="Chest 2" parent="Props" instance=ExtResource("13_jsryn")]
 position = Vector2(240, 152)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [editable path="Characters/Enemy Ninja"]
