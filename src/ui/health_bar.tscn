@@ -22,7 +22,8 @@ stretch_mode = 1
 
 [node name="HudFull" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 14.0
+offset_right = 16.0
 offset_bottom = 14.0
 texture = ExtResource("3_ocipm")
+expand_mode = 1
 stretch_mode = 1

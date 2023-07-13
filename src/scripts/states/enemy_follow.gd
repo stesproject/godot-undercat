@@ -30,3 +30,5 @@ func _on_body_away(body):
 func _on_body_nearby(body):
 	# Transit to attack state
 	print(entity.name, " attack ", body.name)
+	if body is PlayerEntity:
+		body.hp -= entity.attack_power

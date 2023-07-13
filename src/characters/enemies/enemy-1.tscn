@@ -42,6 +42,7 @@ collision_mask = 17
 script = ExtResource("2_f14b3")
 detection_area = NodePath("DetectionArea")
 attack_area = NodePath("AttackArea")
+anim_params = Array[String](["idle", "walk"])
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_bgpxh")

@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=11 format=3 uid="uid://d2cq7thvjhevy"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=16 format=3 uid="uid://d2cq7thvjhevy"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8yvmd"]
 animation = &"char-anim-idle/down"
@@ -20,6 +20,31 @@ blend_point_1/pos = Vector2(0, -1.1)
 blend_point_2/node = SubResource("AnimationNodeAnimation_4vqwq")
 blend_point_2/pos = Vector2(1, 0)
 blend_point_3/node = SubResource("AnimationNodeAnimation_n0l0l")
+blend_point_3/pos = Vector2(-1, 0)
+min_space = Vector2(-1, -1.1)
+max_space = Vector2(1, 1.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8bk0"]
+animation = &"char-anim-run/down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_karjj"]
+animation = &"char-anim-run/up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8fn0e"]
+animation = &"char-anim-run/right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7t8tv"]
+animation = &"char-anim-run/left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_tbalw"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_i8bk0")
+blend_point_0/pos = Vector2(0, 1.1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_karjj")
+blend_point_1/pos = Vector2(0, -1.1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_8fn0e")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_7t8tv")
 blend_point_3/pos = Vector2(-1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
@@ -52,6 +77,8 @@ blend_mode = 1
 
 [resource]
 states/idle/node = SubResource("AnimationNodeBlendSpace2D_5bbd1")
-states/idle/position = Vector2(359, 100)
+states/idle/position = Vector2(323, 42)
+states/run/node = SubResource("AnimationNodeBlendSpace2D_tbalw")
+states/run/position = Vector2(323, 148)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_o2tkr")
-states/walk/position = Vector2(535, 101)
+states/walk/position = Vector2(323, 94)
