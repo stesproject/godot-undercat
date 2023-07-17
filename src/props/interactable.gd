@@ -14,9 +14,11 @@ var can_iteract = "":
 signal action_triggered(object)
 
 func _on_body_entered(body):
-	can_iteract = body.name
-	if can_iteract:
+	if body:
+		can_iteract = body.name
 		entity = body
+		if Input.is_action_pressed(action_name):
+			_try_to_trigger_action()
 
 
 func _on_body_exited(body):
@@ -25,9 +27,14 @@ func _on_body_exited(body):
 
 
 func _unhandled_input(event):
-	if can_iteract != "" && action_name != "" && event.is_action_pressed(action_name) && _check_direction():
+	if can_iteract != "" && action_name != "" && event.is_action_pressed(action_name):
+		_try_to_trigger_action()
+
+
+func _try_to_trigger_action():
+	if _check_direction():
 		action_triggered.emit(self)
-		
+
 
 func _check_direction():
 	if entity && constrain_direction != Vector2i.ZERO:

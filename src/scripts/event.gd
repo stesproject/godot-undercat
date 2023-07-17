@@ -64,6 +64,7 @@ func _run_action():
 
 
 func _action_default():
+	if ca.action == "": return
 	var should_load = typeof(action_value) == TYPE_OBJECT
 	var is_node = typeof(action_value) == TYPE_NODE_PATH
 	var value = action_value

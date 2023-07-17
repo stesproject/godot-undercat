@@ -5,7 +5,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://edxq27u36m3q" path="res://src/characters/char-anim-idle.res" id="3_t5tvp"]
 [ext_resource type="AnimationLibrary" uid="uid://d1mbqwwjny137" path="res://src/characters/char-anim-walk.res" id="4_rpctb"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://d2cq7thvjhevy" path="res://src/characters/player/player-anim-states.tres" id="5_o50cv"]
-[ext_resource type="Script" path="res://src/scripts/StateMachine.gd" id="6_e8djw"]
+[ext_resource type="Script" path="res://src/scripts/state_machine.gd" id="6_d7rje"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_by7t5"]
 size = Vector2(18, 10)
@@ -49,7 +49,7 @@ z_index = -1
 position = Vector2(0, 5)
 texture = ExtResource("1_x0xqk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_by7t5")
 
@@ -64,7 +64,8 @@ libraries = {
 tree_root = ExtResource("5_o50cv")
 anim_player = NodePath("../AnimationPlayer")
 parameters/idle/blend_position = Vector2(0, 0)
+parameters/run/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("6_e8djw")
+script = ExtResource("6_d7rje")

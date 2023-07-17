@@ -1,14 +1,14 @@
 [gd_scene load_steps=14 format=3 uid="uid://bb7opkv52tbr6"]
 
 [ext_resource type="PackedScene" uid="uid://btooms2f34noj" path="res://src/characters/character_base.tscn" id="1_lr162"]
-[ext_resource type="Texture2D" uid="uid://c2tes8vbd2pxa" path="res://assets/sprites/enemy-1.png" id="2_bgpxh"]
 [ext_resource type="Script" path="res://src/characters/enemies/enemy_entity.gd" id="2_f14b3"]
 [ext_resource type="AnimationLibrary" uid="uid://bm0mr528k5qqv" path="res://src/characters/enemies/enemy-anim-idle.res" id="3_dhq2u"]
+[ext_resource type="Texture2D" uid="uid://c2tes8vbd2pxa" path="res://assets/sprites/enemy-1.png" id="3_supyb"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://4qbg3lp02hiu" path="res://src/characters/enemies/enemy-anim-states.tres" id="3_wudg6"]
 [ext_resource type="AnimationLibrary" uid="uid://d1hqlrerkgqly" path="res://src/characters/enemies/enemy-anim-walk.res" id="4_rtkup"]
-[ext_resource type="Script" path="res://src/characters/enemies/enemy-idle.gd" id="7_pjple"]
-[ext_resource type="Script" path="res://src/scripts/states/enemy_follow.gd" id="8_kqo80"]
-[ext_resource type="Script" path="res://src/scripts/states/enemy_wander.gd" id="8_wwxjn"]
+[ext_resource type="Script" path="res://src/characters/enemies/states/enemy-idle.gd" id="7_7geb4"]
+[ext_resource type="Script" path="res://src/characters/enemies/states/enemy_wander.gd" id="8_ja7hi"]
+[ext_resource type="Script" path="res://src/characters/enemies/states/enemy_follow.gd" id="9_4ohqc"]
 
 [sub_resource type="Animation" id="Animation_ti7wn"]
 length = 0.001
@@ -45,7 +45,7 @@ attack_area = NodePath("AttackArea")
 anim_params = Array[String](["idle", "walk"])
 
 [node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("2_bgpxh")
+texture = ExtResource("3_supyb")
 hframes = 3
 vframes = 4
 frame = 0
@@ -78,18 +78,18 @@ debug_color = Color(0.886275, 0.294118, 0.384314, 0.419608)
 initial_state = NodePath("wander")
 
 [node name="idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("next_state")]
-script = ExtResource("7_pjple")
+script = ExtResource("7_7geb4")
 animation_state = "idle"
 next_state = NodePath("../follow")
 
 [node name="wander" type="Node" parent="StateMachine" index="1" node_paths=PackedStringArray("next_state")]
-script = ExtResource("8_wwxjn")
+script = ExtResource("8_ja7hi")
 speed = 30.0
 wander_time_range = Vector2(1, 3)
 animation_state = "walk"
 next_state = NodePath("../follow")
 
 [node name="follow" type="Node" parent="StateMachine" index="2"]
-script = ExtResource("8_kqo80")
+script = ExtResource("9_4ohqc")
 speed = 60.0
 animation_state = "walk"

@@ -11,6 +11,7 @@ class_name CharacterEntity
 var health_bar: HealthBar
 var animationTree: AnimationTree
 var animationState: AnimationNodeStateMachinePlayback
+var collision_shape: CollisionShape2D
 var move_direction: = Vector2.DOWN: set = _set_move_direction
 var is_moving: bool: get = _get_is_moving
 var is_running: bool: get = _get_is_running
@@ -21,6 +22,7 @@ signal hp_changed(value)
 func _ready():
 	_init_animation_tree()
 	_init_health_bar()
+	collision_shape = get_node("CollisionShape")
 
 
 func _physics_process(delta):
