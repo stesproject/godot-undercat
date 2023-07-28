@@ -15,6 +15,11 @@ var collision_shape: CollisionShape2D
 var move_direction: = Vector2.DOWN: set = _set_move_direction
 var is_moving: bool: get = _get_is_moving
 var is_running: bool: get = _get_is_running
+var on_grass = false
+
+@onready var sprite: Sprite2D = get_node("Sprite2D")
+@onready var grass_shader = preload("res://src/shaders/trasparent.gdshader")
+@onready var grass_shader_gradient = preload("res://src/shaders/transparent-gradient.tres")
 
 signal hp_changed(value)
 
@@ -65,3 +70,18 @@ func _get_is_moving():
 
 func _get_is_running():
 	return false
+
+
+func toggle_grass_zone():
+	var material = null
+	if !on_grass:
+		material = ShaderMaterial.new()
+		material.shader = grass_shader
+		material.set_shader_parameter("gradient_alpha", grass_shader_gradient)
+		var texture_size = Vector2(sprite.texture.get_width(), sprite.texture.get_height())
+		material.set_shader_parameter("sprite_sheet_size", texture_size)
+		var frame_size = Vector2(texture_size.x / sprite.hframes, texture_size.y / sprite.vframes)
+		material.set_shader_parameter("frame_size", frame_size)
+	
+	on_grass = !on_grass
+	sprite.material = material

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://do5tuaj3ad87u"]
+[gd_scene load_steps=19 format=3 uid="uid://do5tuaj3ad87u"]
 
 [ext_resource type="PackedScene" uid="uid://btooms2f34noj" path="res://src/characters/character_base.tscn" id="1_tv8uk"]
 [ext_resource type="Script" path="res://src/characters/player/player_entity.gd" id="2_2f0s6"]
@@ -8,6 +8,8 @@
 [ext_resource type="AnimationLibrary" uid="uid://boa4y33ab5fok" path="res://src/characters/char-anim-run.res" id="5_3hcbb"]
 [ext_resource type="Texture2D" uid="uid://sxfehb0vpdqd" path="res://assets/sprites/smoke.png" id="5_lh25l"]
 [ext_resource type="AnimationLibrary" uid="uid://d1mbqwwjny137" path="res://src/characters/char-anim-walk.res" id="6_skmwu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o4pnv"]
 
 [sub_resource type="Animation" id="Animation_1lnwa"]
 length = 0.001
@@ -75,7 +77,11 @@ health_bar_scn = ExtResource("3_gxfa4")
 anim_params = Array[String](["idle", "walk", "run"])
 
 [node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_o4pnv")
 frame = 1
+
+[node name="Shadow" parent="." index="1"]
+visible = false
 
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
