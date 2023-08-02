@@ -26,6 +26,8 @@ Debug="*res://src/scripts/Debug.gd"
 
 window/size/viewport_width=768
 window/size/viewport_height=432
+window/size/window_width_override=1536
+window/size/window_height_override=864
 window/stretch/mode="canvas_items"
 window/fallback="it"
 
@@ -138,6 +140,7 @@ locale/test="it"
 2d_physics/layer_4="companion"
 2d_physics/layer_5="environment"
 2d_physics/layer_6="harmful"
+2d_physics/layer_7="terrain"
 
 [physics]
 

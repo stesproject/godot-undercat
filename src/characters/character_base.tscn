@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://btooms2f34noj"]
+[gd_scene load_steps=11 format=3 uid="uid://btooms2f34noj"]
 
 [ext_resource type="Texture2D" uid="uid://cv3x6mwps5odu" path="res://assets/sprites/chara-hero.png" id="1_3xjx0"]
 [ext_resource type="Texture2D" uid="uid://trw0dubpucfu" path="res://assets/sprites/shadow.png" id="1_x0xqk"]
@@ -6,6 +6,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://d1mbqwwjny137" path="res://src/characters/char-anim-walk.res" id="4_rpctb"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://d2cq7thvjhevy" path="res://src/characters/player/player-anim-states.tres" id="5_o50cv"]
 [ext_resource type="Script" path="res://src/scripts/state_machine.gd" id="6_d7rje"]
+[ext_resource type="PackedScene" uid="uid://thwpupl10bfy" path="res://src/props/terrain_detector.tscn" id="7_ajpp5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_by7t5"]
 size = Vector2(18, 10)
@@ -69,3 +70,6 @@ parameters/walk/blend_position = Vector2(0, 0)
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_d7rje")
+
+[node name="TerrainDetector" parent="." instance=ExtResource("7_ajpp5")]
+data_layer_name = "terrain_type"

@@ -2,7 +2,7 @@
 
 [sub_resource type="Gradient" id="Gradient_e82js"]
 offsets = PackedFloat32Array(0.368421, 0.615385)
-colors = PackedColorArray(0.412152, 0.412153, 0.412152, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.329158, 0.329158, 0.329158, 1, 1, 1, 1, 1)
 
 [resource]
 gradient = SubResource("Gradient_e82js")

@@ -27,7 +27,7 @@ func _set_data(value):
 		global_position = player_data.position
 		move_direction = player_data.direction
 		active = player_data.active
-#			collision_layer = player_layer if active else companion_layer
+#		collision_layer = player_layer if active else companion_layer
 
 
 func _get_is_running():

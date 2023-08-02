@@ -18,6 +18,8 @@ var is_running: bool: get = _get_is_running
 var on_grass = false
 
 @onready var sprite: Sprite2D = get_node("Sprite2D")
+@onready var shadow: Sprite2D = get_node("Shadow")
+@onready var terrain_detector: TerrainDetector = get_node("TerrainDetector")
 @onready var grass_shader = preload("res://src/shaders/trasparent.gdshader")
 @onready var grass_shader_gradient = preload("res://src/shaders/transparent-gradient.tres")
 
@@ -27,6 +29,7 @@ signal hp_changed(value)
 func _ready():
 	_init_animation_tree()
 	_init_health_bar()
+	_init_terrain_detector()
 	collision_shape = get_node("CollisionShape")
 
 
@@ -46,6 +49,11 @@ func _init_health_bar():
 		health_bar = health_bar_scn.instantiate()
 		health_bar.config_hud(self)
 		canvas_layer.add_child(health_bar)
+
+
+func _init_terrain_detector():
+	if terrain_detector:
+		terrain_detector.connect("terrain_entered", _on_terrain_entered)
 
 
 func _set_hp(value):
@@ -72,9 +80,18 @@ func _get_is_running():
 	return false
 
 
-func toggle_grass_zone():
+func _on_terrain_entered(type):
+	match type:
+		64:
+			toggle_grass_zone(true)
+		_:
+			toggle_grass_zone(false)
+			
+
+
+func toggle_grass_zone(on_grass: bool):
 	var material = null
-	if !on_grass:
+	if on_grass:
 		material = ShaderMaterial.new()
 		material.shader = grass_shader
 		material.set_shader_parameter("gradient_alpha", grass_shader_gradient)
@@ -82,6 +99,6 @@ func toggle_grass_zone():
 		material.set_shader_parameter("sprite_sheet_size", texture_size)
 		var frame_size = Vector2(texture_size.x / sprite.hframes, texture_size.y / sprite.vframes)
 		material.set_shader_parameter("frame_size", frame_size)
-	
-	on_grass = !on_grass
+		
+	shadow.self_modulate.a = 0.75 if on_grass else 1
 	sprite.material = material

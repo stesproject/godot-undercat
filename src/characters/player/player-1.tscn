@@ -80,9 +80,6 @@ anim_params = Array[String](["idle", "walk", "run"])
 material = SubResource("ShaderMaterial_o4pnv")
 frame = 1
 
-[node name="Shadow" parent="." index="1"]
-visible = false
-
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
 "": SubResource("AnimationLibrary_63i8g"),

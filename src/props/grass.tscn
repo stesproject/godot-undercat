@@ -1,36 +1,21 @@
-[gd_scene load_steps=11 format=3 uid="uid://p6kde0o7afei"]
+[gd_scene load_steps=12 format=3 uid="uid://p6kde0o7afei"]
 
 [ext_resource type="Shader" path="res://src/shaders/gradient_map.gdshader" id="1_03w74"]
 [ext_resource type="Script" path="res://src/props/prop.gd" id="1_6wbtw"]
 [ext_resource type="Texture2D" uid="uid://ddpub0i70b6dd" path="res://assets/sprites/grass.png" id="1_qt2jr"]
+[ext_resource type="PackedScene" uid="uid://cboidd8ago13a" path="res://src/props/interactable.tscn" id="6_2b46n"]
 
 [sub_resource type="Gradient" id="Gradient_ob4sa"]
-offsets = PackedFloat32Array(0, 0.315789, 0.65587, 1)
-colors = PackedColorArray(0, 0.223529, 0, 1, 0.219608, 0.392157, 0.0509804, 1, 0.501961, 0.698039, 0.180392, 1, 0.407843, 0.611765, 0.27451, 1)
+offsets = PackedFloat32Array(0, 0.315789, 0.619403, 1)
+colors = PackedColorArray(0, 0.223529, 0, 1, 0.0866114, 0.401633, 0.238577, 1, 0.454658, 0.700429, 0.379656, 1, 0.366683, 0.616019, 0.353678, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gy8sl"]
 gradient = SubResource("Gradient_ob4sa")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_apeqo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1sac"]
 shader = ExtResource("1_03w74")
 shader_parameter/mix_amount = 1.0
 shader_parameter/gradient = SubResource("GradientTexture2D_gy8sl")
-
-[sub_resource type="Animation" id="Animation_0ck32"]
-resource_name = "move"
-length = 0.40001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 1]
-}
 
 [sub_resource type="Animation" id="Animation_xdbcw"]
 length = 0.001
@@ -47,35 +32,53 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_0ck32"]
+resource_name = "move"
+length = 0.40001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2dw4t"]
 _data = {
 "RESET": SubResource("Animation_xdbcw"),
 "move": SubResource("Animation_0ck32")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hsye2"]
-radius = 8.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_sgnfe"]
+radius = 16.0
 
 [node name="Grass" type="Node2D"]
 script = ExtResource("1_6wbtw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_apeqo")
+material = SubResource("ShaderMaterial_d1sac")
 position = Vector2(0, 18)
 texture = ExtResource("1_qt2jr")
 hframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "move"
+speed_scale = 0.35
 libraries = {
 "": SubResource("AnimationLibrary_2dw4t")
 }
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, 18)
-collision_layer = 2
-collision_mask = 5
-monitorable = false
+[node name="Interactable" parent="." instance=ExtResource("6_2b46n")]
+position = Vector2(0, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_hsye2")
+[node name="TriggerArea" parent="Interactable" index="0"]
+shape = SubResource("CircleShape2D_sgnfe")
+
+[editable path="Interactable"]
